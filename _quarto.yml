@@ -1,0 +1,34 @@
+project:
+  render:
+    - About.qmd
+    - BibTex Data Import.qmd
+    - Data Cleaning.qmd
+    - Word Clouds.qmd
+    - Bibliometric Analysis.qmd
+    - Network Attributes and Visualisations.qmd
+  type: website
+
+website:
+  title: "Open Science Northumbria"
+  page-navigation: true
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Main"
+        contents:
+          - About.qmd
+          - BibTex Data Import.qmd
+          - Data Cleaning.qmd
+          - Word Clouds.qmd
+          - Bibliometric Analysis.qmd
+          - Network Attributes and Visualisations.qmd
+
+format:
+  html:
+    theme: cyborg
+    css: styles.css
+    toc: true
+
+editor: visual
+

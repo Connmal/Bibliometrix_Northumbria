@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Pollet and Connor Malcolm">
+<meta name="dcterms.date" content="2022-01-30">
+
+<title>Open Science Northumbria - Network Attributes and Visualisations</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bibliometric Analysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Network Attributes and Visualisations</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Network Attributes and Visualisations</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      Thomas Pollet and Connor Malcolm 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Northumbria University
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 30, 2022</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">May 16, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="abstract-title">Abstract</div>
+      Network Attributes, Visualisations, Hive Plots for Corresponding authors based upon Collaboration
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Open Science Northumbria</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Main</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BibTex Data Import.html" class="sidebar-item-text sidebar-link">BibTex Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data Cleaning.html" class="sidebar-item-text sidebar-link">Data Cleaning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Word Clouds.html" class="sidebar-item-text sidebar-link">Word Clouds</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bibliometric Analysis.html" class="sidebar-item-text sidebar-link">Bibliometric Analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Network Attributes and Visualisations.html" class="sidebar-item-text sidebar-link active">Network Attributes and Visualisations</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#author-collaboration-for-corresponding-authors" id="toc-author-collaboration-for-corresponding-authors" class="nav-link active" data-scroll-target="#author-collaboration-for-corresponding-authors">Author Collaboration for Corresponding Authors</a>
+  <ul class="collapse">
+  <li><a href="#all-open-access" id="toc-all-open-access" class="nav-link" data-scroll-target="#all-open-access"><strong>All Open Access</strong></a></li>
+  <li><a href="#green" id="toc-green" class="nav-link" data-scroll-target="#green"><strong>Green</strong></a></li>
+  <li><a href="#green-final" id="toc-green-final" class="nav-link" data-scroll-target="#green-final"><strong>Green Final</strong></a></li>
+  <li><a href="#green-accepted" id="toc-green-accepted" class="nav-link" data-scroll-target="#green-accepted"><strong>Green Accepted</strong></a>
+  <ul class="collapse">
+  <li><a href="#summary-statistics-3" id="toc-summary-statistics-3" class="nav-link" data-scroll-target="#summary-statistics-3">Summary Statistics</a></li>
+  <li><a href="#page-rank-3" id="toc-page-rank-3" class="nav-link" data-scroll-target="#page-rank-3">Page Rank</a></li>
+  <li><a href="#network-plot-3" id="toc-network-plot-3" class="nav-link" data-scroll-target="#network-plot-3">Network Plot</a></li>
+  </ul></li>
+  <li><a href="#not-green" id="toc-not-green" class="nav-link" data-scroll-target="#not-green"><strong>Not Green</strong></a>
+  <ul class="collapse">
+  <li><a href="#alternate-network-visualizations" id="toc-alternate-network-visualizations" class="nav-link" data-scroll-target="#alternate-network-visualizations">Alternate Network Visualizations</a></li>
+  </ul></li>
+  <li><a href="#hive-plots" id="toc-hive-plots" class="nav-link" data-scroll-target="#hive-plots">Hive Plots</a>
+  <ul class="collapse">
+  <li><a href="#faceted-hive-plots" id="toc-faceted-hive-plots" class="nav-link" data-scroll-target="#faceted-hive-plots">Faceted Hive Plots</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="author-collaboration-for-corresponding-authors" class="level1">
+<h1>Author Collaboration for Corresponding Authors</h1>
+<p>Summary statistics : Size, Density, Transitivity, Diameter (length of shortest path between nodes in a network), Degree distribution, Degree centralization, Closeness centralization, Eigenvector centralization, Betweeness centralization, Average path length.</p>
+<section id="all-open-access" class="level2">
+<h2 class="anchored" data-anchor-id="all-open-access"><strong>All Open Access</strong></h2>
+<section id="summary-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>all_oa_corr <span class="ot">&lt;-</span> all_oa_corr[<span class="sc">!</span><span class="fu">duplicated</span>(all_oa_corr<span class="sc">$</span>DI),]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>all_oa_corr<span class="sc">$</span>SR <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>all_oa_corr<span class="sc">$</span>SR_FULL <span class="ot">&lt;-</span><span class="cn">NULL</span> <span class="do">##Seemed to hold problem duplicates I couldn't get rid of without removing publictaions so I just dropped the columns for all_oa.Not useful anyway.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>net_matrix_all_oa <span class="ot">&lt;-</span> <span class="fu">biblioNetwork</span>(all_oa_corr, <span class="at">analysis =</span> <span class="st">"collaboration"</span>, <span class="at">network =</span> <span class="st">"authors"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>net_stat_all_oa <span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_all_oa)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net_stat_all_oa, <span class="at">k=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Main statistics about the network
+
+ Size                                  2432 
+ Density                               0.004 
+ Transitivity                          0.88 
+ Diameter                              14 
+ Degree Centralization                 0.027 
+ Average path length                   6.11 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="page-rank" class="level4">
+<h4 class="anchored" data-anchor-id="page-rank">Page Rank</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>net_all_oa_all<span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_all_oa, <span class="at">stat =</span> <span class="st">"all"</span>, <span class="at">type=</span> <span class="st">"all"</span>) <span class="co">#Calculates many interesting things (including pagerank.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in betweenness(net, v = V(net), directed = FALSE, weights = NULL, : 'nobigint' is deprecated since igraph 1.3
+and will be removed in igraph 1.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>net_all_oa_interesting <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(net_all_oa_all[[<span class="st">"vertex"</span>]])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>all_oa_page_rank <span class="ot">&lt;-</span> net_all_oa_interesting[<span class="fu">with</span>(net_all_oa_interesting,<span class="fu">order</span>(<span class="sc">-</span>vertexPageRank)),]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>all_oa_page_rank <span class="ot">&lt;-</span> all_oa_page_rank[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>all_oa_page_rank_top_25 <span class="ot">&lt;-</span> all_oa_page_rank <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(vertexID, vertexPageRank))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>all_oa_page_rank_top_25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           vertexID vertexPageRank
+XU BB                         XU BB    0.002388547
+TORUN H                     TORUN H    0.002043633
+HOWATSON G               HOWATSON G    0.001657070
+FINCH T                     FINCH T    0.001593615
+WU Q                           WU Q    0.001587371
+SCOTT J                     SCOTT J    0.001544451
+MAQBOOL R                 MAQBOOL R    0.001518126
+FU Y                           FU Y    0.001502761
+POLLET TV                 POLLET TV    0.001447671
+MARZBAND M               MARZBAND M    0.001439754
+GUO Z                         GUO Z    0.001433217
+CORDIER R                 CORDIER R    0.001418108
+BARRY G                     BARRY G    0.001403227
+WILSON-MENZFELD G WILSON-MENZFELD G    0.001402974
+THURAIRAJAH N         THURAIRAJAH N    0.001379891
+GODFREY A                 GODFREY A    0.001333202
+STUART S                   STUART S    0.001321611
+DICKENS GL               DICKENS GL    0.001297331
+SHANG Y                     SHANG Y    0.001286809
+POOLOGANATHAN K     POOLOGANATHAN K    0.001262781
+GAO Z                         GAO Z    0.001253900
+MCCARTY K                 MCCARTY K    0.001204470
+WANG K                       WANG K    0.001196364
+AVERY L                     AVERY L    0.001190158
+FU YQ                         FU YQ    0.001179159</code></pre>
+</div>
+</div>
+</section>
+<section id="network-plot" class="level4">
+<h4 class="anchored" data-anchor-id="network-plot">Network Plot</h4>
+<p>(Need to figure out how to have large networks that aren’t just hairballs)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>net_all_oa <span class="ot">&lt;-</span> <span class="fu">networkPlot</span>(net_matrix_all_oa, <span class="at">n =</span> <span class="dv">150</span>, <span class="at">Title =</span> <span class="st">"Collaboration Network"</span>, <span class="at">type =</span> <span class="st">"fruchterman"</span>, <span class="at">size=</span>T, <span class="at">remove.multiple=</span><span class="cn">FALSE</span>, <span class="at">labelsize=</span><span class="fl">0.7</span>,<span class="at">edgesize =</span> .<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="green" class="level2">
+<h2 class="anchored" data-anchor-id="green"><strong>Green</strong></h2>
+<section id="summary-statistics-1" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics-1">Summary Statistics</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>net_matrix_green <span class="ot">&lt;-</span> <span class="fu">biblioNetwork</span>(green_corr, <span class="at">analysis =</span> <span class="st">"collaboration"</span>, <span class="at">network =</span> <span class="st">"authors"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>net_stat_green <span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net_stat_green, <span class="at">k=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Main statistics about the network
+
+ Size                                  2398 
+ Density                               0.004 
+ Transitivity                          0.885 
+ Diameter                              14 
+ Degree Centralization                 0.027 
+ Average path length                   6.416 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="page-rank-1" class="level4">
+<h4 class="anchored" data-anchor-id="page-rank-1">Page Rank</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>net_green_all<span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green, <span class="at">stat =</span> <span class="st">"all"</span>, <span class="at">type=</span> <span class="st">"all"</span>) <span class="co">#Calculates many interesting things (including pagerank.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in betweenness(net, v = V(net), directed = FALSE, weights = NULL, : 'nobigint' is deprecated since igraph 1.3
+and will be removed in igraph 1.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>net_green_interesting <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(net_green_all[[<span class="st">"vertex"</span>]])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>green_page_rank <span class="ot">&lt;-</span> net_green_interesting[<span class="fu">with</span>(net_green_interesting,<span class="fu">order</span>(<span class="sc">-</span>vertexPageRank)),]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>green_page_rank <span class="ot">&lt;-</span> green_page_rank[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>green_page_rank_top_25 <span class="ot">&lt;-</span> green_page_rank <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(vertexID, vertexPageRank))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>green_page_rank_top_25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           vertexID vertexPageRank
+XU BB                         XU BB    0.002267625
+TORUN H                     TORUN H    0.001975115
+HOWATSON G               HOWATSON G    0.001680174
+WU Q                           WU Q    0.001627842
+FINCH T                     FINCH T    0.001622863
+SCOTT J                     SCOTT J    0.001579656
+MARZBAND M               MARZBAND M    0.001559428
+MAQBOOL R                 MAQBOOL R    0.001538928
+FU Y                           FU Y    0.001520925
+POLLET TV                 POLLET TV    0.001467563
+WILSON-MENZFELD G WILSON-MENZFELD G    0.001423749
+BARRY G                     BARRY G    0.001411267
+CORDIER R                 CORDIER R    0.001404416
+GODFREY A                 GODFREY A    0.001349880
+STUART S                   STUART S    0.001337827
+DICKENS GL               DICKENS GL    0.001326286
+THURAIRAJAH N         THURAIRAJAH N    0.001311004
+SHANG Y                     SHANG Y    0.001305311
+GUO Z                         GUO Z    0.001293999
+GAO Z                         GAO Z    0.001272333
+POOLOGANATHAN K     POOLOGANATHAN K    0.001263434
+MCCARTY K                 MCCARTY K    0.001221042
+WANG K                       WANG K    0.001218286
+AVERY L                     AVERY L    0.001207882
+FU YQ                         FU YQ    0.001207161</code></pre>
+</div>
+</div>
+</section>
+<section id="network-plot-1" class="level4">
+<h4 class="anchored" data-anchor-id="network-plot-1">Network Plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>net_green <span class="ot">&lt;-</span> <span class="fu">networkPlot</span>(net_matrix_green, <span class="at">n =</span> <span class="dv">150</span>, <span class="at">Title =</span> <span class="st">"Collaboration Network"</span>, <span class="at">type =</span> <span class="st">"fruchterman"</span>, <span class="at">size=</span>T, <span class="at">remove.multiple=</span><span class="cn">FALSE</span>, <span class="at">labelsize=</span><span class="fl">0.7</span>,<span class="at">edgesize =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="green-final" class="level2">
+<h2 class="anchored" data-anchor-id="green-final"><strong>Green Final</strong></h2>
+<section id="summary-statistics-2" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics-2">Summary Statistics</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>net_matrix_green_final <span class="ot">&lt;-</span> <span class="fu">biblioNetwork</span>(green_final_corr, <span class="at">analysis =</span> <span class="st">"collaboration"</span>, <span class="at">network =</span> <span class="st">"authors"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>net_stat_green_final <span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green_final)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net_stat_green_final, <span class="at">k=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Main statistics about the network
+
+ Size                                  1207 
+ Density                               0.01 
+ Transitivity                          0.958 
+ Diameter                              13 
+ Degree Centralization                 0.047 
+ Average path length                   4.613 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="page-rank-2" class="level4">
+<h4 class="anchored" data-anchor-id="page-rank-2">Page Rank</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>net_green_final_all<span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green_final, <span class="at">stat =</span> <span class="st">"all"</span>, <span class="at">type=</span> <span class="st">"all"</span>) <span class="co">#Calculates many interesting things (including pagerank.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in betweenness(net, v = V(net), directed = FALSE, weights = NULL, : 'nobigint' is deprecated since igraph 1.3
+and will be removed in igraph 1.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>net_green_final_interesting <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(net_green_final_all[[<span class="st">"vertex"</span>]])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>green_final_page_rank <span class="ot">&lt;-</span> net_green_final_interesting[<span class="fu">with</span>(net_green_final_interesting,<span class="fu">order</span>(<span class="sc">-</span>vertexPageRank)),]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>green_final_page_rank <span class="ot">&lt;-</span> green_final_page_rank[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>green_final_page_rank_top_25 <span class="ot">&lt;-</span> green_final_page_rank <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(vertexID, vertexPageRank))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>green_final_page_rank_top_25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           vertexID vertexPageRank
+FINCH T                     FINCH T    0.002924918
+HOWATSON G               HOWATSON G    0.002655933
+CORDIER R                 CORDIER R    0.002600564
+SCOTT J                     SCOTT J    0.002494150
+DICKENS GL               DICKENS GL    0.002365268
+BARRY G                     BARRY G    0.002318322
+AVERY L                     AVERY L    0.002312757
+POOLOGANATHAN K     POOLOGANATHAN K    0.002309373
+TORUN H                     TORUN H    0.002141325
+GODFREY A                 GODFREY A    0.002118096
+STUART S                   STUART S    0.002015907
+FU Y                           FU Y    0.002005366
+DEFEYTER MA             DEFEYTER MA    0.001983977
+TIWARI D                   TIWARI D    0.001918697
+GONZÁLEZ S               GONZÁLEZ S    0.001823282
+WOO WL                       WOO WL    0.001768242
+WILSON-MENZFELD G WILSON-MENZFELD G    0.001763044
+COVENTRY L               COVENTRY L    0.001746669
+XU BB                         XU BB    0.001727298
+KIERNAN MD               KIERNAN MD    0.001693775
+GATHEESHGAR P         GATHEESHGAR P    0.001649280
+PAN C                         PAN C    0.001621367
+WANG K                       WANG K    0.001621367
+CORRADI M                 CORRADI M    0.001585191
+HETTINGA FJ             HETTINGA FJ    0.001572971</code></pre>
+</div>
+</div>
+</section>
+<section id="network-plot-2" class="level4">
+<h4 class="anchored" data-anchor-id="network-plot-2">Network Plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>net_green_final <span class="ot">&lt;-</span> <span class="fu">networkPlot</span>(net_matrix_green_final, <span class="at">n =</span> <span class="dv">150</span>, <span class="at">Title =</span> <span class="st">"Collaboration Network"</span>, <span class="at">type =</span> <span class="st">"fruchterman"</span>, <span class="at">size=</span>T, <span class="at">remove.multiple=</span><span class="cn">FALSE</span>, <span class="at">labelsize=</span><span class="fl">0.7</span>,<span class="at">edgesize =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="green-accepted" class="level2">
+<h2 class="anchored" data-anchor-id="green-accepted"><strong>Green Accepted</strong></h2>
+<section id="summary-statistics-3" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics-3">Summary Statistics</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>net_matrix_green_accepted <span class="ot">&lt;-</span> <span class="fu">biblioNetwork</span>(green_accepted_corr, <span class="at">analysis =</span> <span class="st">"collaboration"</span>, <span class="at">network =</span> <span class="st">"authors"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>net_stat_green_accepted <span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green_accepted)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net_stat_green_accepted, <span class="at">k=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Main statistics about the network
+
+ Size                                  1452 
+ Density                               0.004 
+ Transitivity                          0.774 
+ Diameter                              15 
+ Degree Centralization                 0.03 
+ Average path length                   4.49 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="page-rank-3" class="level3">
+<h3 class="anchored" data-anchor-id="page-rank-3">Page Rank</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>net_green_accepted_all<span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_green_accepted, <span class="at">stat =</span> <span class="st">"all"</span>, <span class="at">type=</span> <span class="st">"all"</span>) <span class="co">#Calculates many interesting things (including pagerank.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in betweenness(net, v = V(net), directed = FALSE, weights = NULL, : 'nobigint' is deprecated since igraph 1.3
+and will be removed in igraph 1.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>net_green_accepted_interesting <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(net_green_accepted_all[[<span class="st">"vertex"</span>]])</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>green_accepted_page_rank <span class="ot">&lt;-</span> net_green_accepted_interesting[<span class="fu">with</span>(net_green_accepted_interesting,<span class="fu">order</span>(<span class="sc">-</span>vertexPageRank)),]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>green_accepted_page_rank <span class="ot">&lt;-</span> green_accepted_page_rank[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>green_accepted_page_rank_top_25 <span class="ot">&lt;-</span> green_accepted_page_rank <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(vertexID, vertexPageRank))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>green_accepted_page_rank_top_25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       vertexID vertexPageRank
+XU BB                     XU BB    0.003023673
+WU Q                       WU Q    0.002545427
+TORUN H                 TORUN H    0.002428556
+MAQBOOL R             MAQBOOL R    0.002307804
+POLLET TV             POLLET TV    0.002304099
+THURAIRAJAH N     THURAIRAJAH N    0.002273221
+GUO Z                     GUO Z    0.002252070
+SHANG Y                 SHANG Y    0.002231116
+FU YQ                     FU YQ    0.002174649
+MARZBAND M           MARZBAND M    0.002147596
+WANG Y                   WANG Y    0.001975717
+GAO Z                     GAO Z    0.001901558
+POUND MJ               POUND MJ    0.001896643
+VU MC                     VU MC    0.001883560
+STUART S               STUART S    0.001811813
+YANG L                   YANG L    0.001754185
+NEAVE N                 NEAVE N    0.001744772
+POOLOGANATHAN K POOLOGANATHAN K    0.001705948
+LIM M                     LIM M    0.001693244
+ADENIYI O             ADENIYI O    0.001624033
+ASLAM N                 ASLAM N    0.001619280
+AZIMOV U               AZIMOV U    0.001610623
+UNSWORTH J           UNSWORTH J    0.001591190
+DEARY ME               DEARY ME    0.001588631
+YUAN J                   YUAN J    0.001584682</code></pre>
+</div>
+</div>
+</section>
+<section id="network-plot-3" class="level3">
+<h3 class="anchored" data-anchor-id="network-plot-3">Network Plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>net_green_accepted <span class="ot">&lt;-</span> <span class="fu">networkPlot</span>(net_matrix_green_accepted, <span class="at">n =</span> <span class="dv">150</span>, <span class="at">Title =</span> <span class="st">"Collaboration Network"</span>, <span class="at">type =</span> <span class="st">"fruchterman"</span>, <span class="at">size=</span>T, <span class="at">remove.multiple=</span><span class="cn">FALSE</span>, <span class="at">labelsize=</span><span class="fl">0.7</span>,<span class="at">edgesize =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="not-green" class="level2">
+<h2 class="anchored" data-anchor-id="not-green"><strong>Not Green</strong></h2>
+<section id="summary-statistics-4" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics-4">Summary Statistics</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>net_matrix_not_green<span class="ot">&lt;-</span> <span class="fu">biblioNetwork</span>(not_green_corr, <span class="at">analysis =</span> <span class="st">"collaboration"</span>, <span class="at">network =</span> <span class="st">"authors"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>net_stat_not_green <span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_not_green)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net_stat_not_green, <span class="at">k=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Main statistics about the network
+
+ Size                                  649 
+ Density                               0.009 
+ Transitivity                          0.621 
+ Diameter                              9 
+ Degree Centralization                 0.078 
+ Average path length                   3.722 
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="page-rank-4" class="level4">
+<h4 class="anchored" data-anchor-id="page-rank-4">Page Rank</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>net_not_green_all<span class="ot">&lt;-</span> <span class="fu">networkStat</span>(net_matrix_not_green, <span class="at">stat =</span> <span class="st">"all"</span>, <span class="at">type=</span> <span class="st">"all"</span>) <span class="co">#Calculates many interesting things (including pagerank.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in betweenness(net, v = V(net), directed = FALSE, weights = NULL, : 'nobigint' is deprecated since igraph 1.3
+and will be removed in igraph 1.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>net_not_green_interesting <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(net_not_green_all[[<span class="st">"vertex"</span>]])</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>not_green_page_rank <span class="ot">&lt;-</span> net_not_green_interesting[<span class="fu">with</span>(net_not_green_interesting,<span class="fu">order</span>(<span class="sc">-</span>vertexPageRank)),]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>not_green_page_rank <span class="ot">&lt;-</span> not_green_page_rank[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>,]</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>not_green_page_rank_top_25 <span class="ot">&lt;-</span> not_green_page_rank <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">c</span>(vertexID, vertexPageRank))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>not_green_page_rank_top_25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       vertexID vertexPageRank
+WU Q                       WU Q    0.006783042
+JAHANKHANI H       JAHANKHANI H    0.005922758
+XU BB                     XU BB    0.005831571
+POOLOGANATHAN K POOLOGANATHAN K    0.005295464
+FU YQ                     FU YQ    0.005258701
+GUO Z                     GUO Z    0.005250989
+GATHEESHGAR P     GATHEESHGAR P    0.004711329
+MARZBAND M           MARZBAND M    0.004274064
+YUAN J                   YUAN J    0.004045065
+ALGADI H               ALGADI H    0.003792800
+ZHOU X                   ZHOU X    0.003787891
+XING L                   XING L    0.003688906
+LI H                       LI H    0.003634541
+TORUN H                 TORUN H    0.003548481
+ALLEN G                 ALLEN G    0.003533428
+CORRADI M             CORRADI M    0.003357814
+LIU B                     LIU B    0.003253078
+ZHANG Y                 ZHANG Y    0.003220641
+GODFREY A             GODFREY A    0.003049035
+STUART S               STUART S    0.003049035
+GHASSEMLOOY Z     GHASSEMLOOY Z    0.002911522
+MAQBOOL R             MAQBOOL R    0.002862371
+DAS J                     DAS J    0.002809138
+SHAMS SMR             SHAMS SMR    0.002762666
+ELLIOTT IC           ELLIOTT IC    0.002729203</code></pre>
+</div>
+</div>
+</section>
+<section id="network-plot-4" class="level4">
+<h4 class="anchored" data-anchor-id="network-plot-4">Network Plot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>net_not_green <span class="ot">&lt;-</span> <span class="fu">networkPlot</span>(net_matrix_not_green, <span class="at">n =</span> <span class="dv">150</span>, <span class="at">Title =</span> <span class="st">"Collaboration Network"</span>, <span class="at">type =</span> <span class="st">"fruchterman"</span>, <span class="at">size=</span>T, <span class="at">remove.multiple=</span><span class="cn">FALSE</span>, <span class="at">labelsize=</span>.<span class="dv">7</span>,<span class="at">edgesize =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="alternate-network-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="alternate-network-visualizations">Alternate Network Visualizations</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>all_oa_graph <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">graph.adjacency</span>(net_matrix_all_oa                                                                             </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>                                   , <span class="at">mode=</span><span class="st">"undirected"</span>                                                                   </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                                   , <span class="at">weighted=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>clusterlouvain <span class="ot">&lt;-</span> <span class="fu">cluster_louvain</span>(all_oa_graph)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>clusterlouvain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IGRAPH clustering multi level, groups: 258, mod: 0.94
++ groups:
+  $`1`
+   [1] "STUART S"        "GODFREY A"       "BARRY G"         "MORRIS R"        "MASON R"         "WALKER R"       
+   [7] "GOODALL S"       "POWELL D"        "DAS J"           "YOUNG F"         "ALI M"           "DANJOUX G"      
+  [13] "GRAY J"          "MANCINI M"       "PEARSON LT"      "VITORIO R"       "CELIK Y"         "DISMORE L"      
+  [19] "GRAHAM L"        "KOPNINA H"       "MCDONALD C"      "MCMEEKIN P"      "MONTAGUE K"      "MOORE J"        
+  [25] "O'DOHERTY AF"    "OMAN P"          "WALL C"          "AFTAB M"         "AHMAD B"         "ARAUJO-SOARES V"
+  [31] "ASLAN MF"        "BAKER A"         "BAKER P"         "BALAAM M"        "BEHM DG"         "BOKHARI SAA"    
+  [37] "BUTTERFIELD A"   "BYERLEY J"       "CAISLEY K"       "CAMPBELL KR"     "CARR E"          "CARVALHO L"     
+  [43] "CLARK N"         "CLEAR AK"        "COULBY G"        "COURT P"         "COVASSIN T"      "DEVER A"        
+  [49] "DOHERTY P"       "DURRAND J"       "GHATTAS H"       "GILLIS C"        "GREAVES C"       "GUAN Y"         
+  + ... omitted several groups/vertices</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(all_oa_graph, <span class="at">vertex.color=</span><span class="fu">rainbow</span>(<span class="dv">7</span>, <span class="at">alpha=</span><span class="fl">0.6</span>)[clusterlouvain<span class="sc">$</span>membership])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="hive-plots" class="level2">
+<h2 class="anchored" data-anchor-id="hive-plots">Hive Plots</h2>
+<p>Taking igraphs from the bilbionetwork object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>hive_green <span class="ot">&lt;-</span> net_green[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_edge, <span class="at">oa_status =</span> <span class="st">"Green"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_edge)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>hive_green_accpeted <span class="ot">&lt;-</span> net_green_accepted[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_accpeted)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_accepted_edge, <span class="at">oa_status =</span> <span class="st">"Green Accepted"</span>)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_accepted_edge)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>hive_green_final <span class="ot">&lt;-</span> net_green_final[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_final)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_final_edge, <span class="at">oa_status =</span> <span class="st">"Green Final"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_final_edge)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>hive_not_green <span class="ot">&lt;-</span> net_not_green[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_not_green)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(not_green_edge, <span class="at">oa_status =</span> <span class="st">"Not Green"</span>)</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(not_green_edge)</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>full_hive <span class="ot">&lt;-</span> <span class="fu">rbind</span>(green_edge, green_accepted_edge, green_final_edge, not_green_edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The Hive plot below shows the collaborations between authors in terms of collaboration, differentiated by their open access.</p>
+<p>The large main hive plot lines are where the nodes (authors) are situated based on three categories. Having <strong>few</strong> collaborations (less than 5) having <strong>medium</strong> collaborations (between 5 and 15) and having <strong>many</strong> collaborations (more than 15) The curved lines signify and edge (collaboration/link between authors).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(full_hive)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">degree</span>(graph, <span class="at">mode =</span> <span class="st">'in'</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="st">'few'</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&gt;=</span> <span class="dv">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span>)), </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>))</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the hive plot</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#16e01a"</span>, <span class="st">"#69d9db"</span>, <span class="st">"#9f4fe0"</span>,<span class="st">"#06000a"</span>), <span class="at">name =</span> <span class="st">"Open Access Status"</span>) <span class="sc">+</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` in the `default_aes` field and elsewhere instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="faceted-hive-plots" class="level3">
+<h3 class="anchored" data-anchor-id="faceted-hive-plots">Faceted Hive Plots</h3>
+<p>Hive plots separated by open access for clearer visualization.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_edges</span>(<span class="sc">~</span>oa_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Bibliometric Analysis.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bibliometric Analysis</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

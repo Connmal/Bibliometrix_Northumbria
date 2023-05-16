@@ -1,0 +1,653 @@
+---
+title: "Network Attributes and Visualisations"
+author: 
+  - name: "Thomas Pollet and Connor Malcolm"
+    affiliations: 
+     - name: "Northumbria University"
+date: "2022-01-30"
+date-modified: "`r format(Sys.time(), '%Y %B, %d')`"
+title-block-banner: true
+abstract: "Network Attributes, Visualisations, Hive Plots for Corresponding authors based upon Collaboration"
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(tidyverse)
+library(yarrr)
+library(wordcloud)
+library(wordcloud2)
+library(bibliometrix)
+library(tidyverse)
+library(igraph)
+library(tidygraph)
+library(ggraph)
+library(EGAnet)
+library(papaja)
+library(janitor)
+library(gtools)
+library(data.table)
+library(readr)
+library(ggplot2)
+library(HiveR)
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+scopus1000df <- convert2df(file = "scopus2000alloa.bib" , dbsource = "scopus", format = "bibtex")
+scopusRESTdf <- convert2df(file = "scopusall30.bib" , dbsource = "scopus", format = "bibtex")
+scopus_all_oa<- merge(scopusRESTdf, scopus1000df, all = TRUE) #Scopus has a 2000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGreen.bib"
+
+scopus_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGREENFINALOA.bib"
+
+scopus_green_final <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGREENACCEPTEDOA.bib"
+
+scopus_green_accepted <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusNOTGREEN.bib"
+
+scopus_not_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+ 
+wos1000df <- convert2df(file = "wosALLOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTdf <- convert2df(file = "wosALLrest.bib" , dbsource = "wos", format = "bibtex")
+wos_all_oa<- merge(wosRESTdf, wos1000df, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosAllGreen.bib"
+
+wos_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosNOTGREEN.bib"
+
+wos_not_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosFinal.bib"
+
+wos_green_final <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+wos1000Accepteddf <- convert2df(file = "wosAcceptedOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTAccepteddf <- convert2df(file = "wosAcceptedrest.bib" , dbsource = "wos", format = "bibtex")
+wos_green_accepted<- merge(wosRESTAccepteddf, wos1000Accepteddf, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_all_oa_names <- intersect(names(scopus_all_oa), names(wos_all_oa)) #Find common column names
+scopus_wos_all_oa <- merge(scopus_all_oa, wos_all_oa, by=common_col_all_oa_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_names <- intersect(names(scopus_green), names(wos_green)) #Find common column names
+scopus_wos_green <- merge(scopus_green, wos_green, by=common_col_green_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_final_names <- intersect(names(scopus_green_final), names(wos_green_final)) #Find common column names
+scopus_wos_green_final <- merge(scopus_green_final, wos_green_final, by=common_col_green_final_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_accepted_names <- intersect(names(scopus_green_accepted), names(wos_green_accepted)) #Find common column names
+scopus_wos_green_accepted <- merge(scopus_green_accepted, wos_green_accepted, by=common_col_green_accepted_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_not_green_names <- intersect(names(scopus_not_green), names(wos_not_green)) #Find common column names
+scopus_wos_not_green <- merge(scopus_not_green, wos_not_green, by=common_col_not_green_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+all_oa_corr <- scopus_wos_all_oa %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+all_oa_single_authors<- all_oa_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_corr <- scopus_wos_green %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_single_authors<- green_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_final_corr <- scopus_wos_green_final %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_final_single_authors<- green_final_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_accepted_corr <- scopus_wos_green_accepted %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_accepted_single_authors<- green_accepted_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+not_green_corr <- scopus_wos_not_green %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+not_green_single_authors<- not_green_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+```
+
+```{r}
+#| echo: false
+#| output: false
+all_oa_single_authors$RP <- sub(';.*', "" , as.character(all_oa_single_authors$RP))
+all_oa_single_authors$RP <- gsub(',',"", as.character(all_oa_single_authors$RP))
+all_oa_single_authors$RP <- gsub('\\.',"", as.character(all_oa_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_all_oa <- subset(all_oa_single_authors, AU == RP)
+
+green_single_authors$RP <- sub(';.*', "" , as.character(green_single_authors$RP))
+green_single_authors$RP <- gsub(',',"", as.character(green_single_authors$RP))
+green_single_authors$RP <- gsub('\\.',"", as.character(green_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green <- subset(green_single_authors, AU == RP)
+
+green_final_single_authors$RP <- sub(';.*', "" , as.character(green_final_single_authors$RP))
+green_final_single_authors$RP <- gsub(',',"", as.character(green_final_single_authors$RP))
+green_final_single_authors$RP <- gsub('\\.',"", as.character(green_final_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green_final <- subset(green_final_single_authors, AU == RP)
+
+green_accepted_single_authors$RP <- sub(';.*', "" , as.character(green_accepted_single_authors$RP))
+green_accepted_single_authors$RP <- gsub(',',"", as.character(green_accepted_single_authors$RP))
+green_accepted_single_authors$RP <- gsub('\\.',"", as.character(green_accepted_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green_accepted <- subset(green_accepted_single_authors, AU == RP)
+
+not_green_single_authors$RP <- sub(';.*', "" , as.character(not_green_single_authors$RP))
+not_green_single_authors$RP <- gsub(',',"", as.character(not_green_single_authors$RP))
+not_green_single_authors$RP <- gsub('\\.',"", as.character(not_green_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_not_green <- subset(not_green_single_authors, AU == RP)
+```
+
+```{r}
+#| echo: false
+#| output: false
+duplicates_green_green<-inner_join(scopus_wos_not_green, scopus_wos_green_final, scopus_wos_green_accepted, by='DI')
+
+duplicates_not_green_green_final<-inner_join(scopus_wos_not_green, scopus_wos_green_final, scopus_wos_green, by='DI')
+
+duplicates_not_green_green_acccepted<-inner_join(scopus_wos_not_green, scopus_wos_green_accepted, scopus_wos_green, by='DI')
+
+duplicates_green_final_green_acccepted<-inner_join(scopus_green_final, scopus_wos_green_accepted, scopus_wos_green, by='DI')
+```
+
+```{r}
+#| echo: false
+#| output: false
+corr_table_all_oa<-table(rp_single_author_all_oa$AU)
+corr_table_all_oa_sorted <- corr_table_all_oa%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green<-table(rp_single_author_green$AU)
+corr_table_green_sorted <- corr_table_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green_final<-table(rp_single_author_green_final$AU)
+corr_table_green_final_sorted <- corr_table_green_final%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green_accepted<-table(rp_single_author_green_accepted$AU)
+corr_table_green_accepted_sorted <- corr_table_green_accepted%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_not_green<-table(rp_single_author_not_green$AU)
+corr_table_not_green_sorted <- corr_table_not_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+SO_table_all_oa<-table(scopus_wos_all_oa$SO)
+SO_table_all_oa_sorted <- SO_table_all_oa%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green<-table(scopus_wos_green$SO)
+SO_table_green_sorted <- SO_table_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green_final<-table(scopus_wos_green_final$SO)
+SO_table_green_final_sorted <- SO_table_green_final%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green_accepted<-table(scopus_wos_green_accepted$SO)
+SO_table_green_accepted_sorted <- SO_table_green_accepted%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_not_green<-table(scopus_wos_not_green$SO)
+SO_table_not_green_sorted <- SO_table_not_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+```
+
+```{r}
+#| echo: false
+#| output: false
+result_all_oa <- biblioAnalysis(all_oa_corr, sep = ";")
+
+
+options(width=100)
+summary_result_all_oa  <- summary(object= result_all_oa, k = 25, pause = F)
+```
+
+```{r}
+#| echo: false
+#| output: false
+result_green <- biblioAnalysis(green_corr, sep = ";")
+
+
+options(width=100)
+summary_result_green  <- summary(object= result_green, k = 25, pause = F)
+```
+
+```{r}
+#| echo: false
+#| output: false
+result_green_final <- biblioAnalysis(green_final_corr, sep = ";")
+
+
+options(width=100)
+summary_result_green_final  <- summary(object= result_green_final, k = 25, pause = F)
+```
+
+```{r}
+#| echo: false
+#| output: false
+result_green_accepted <- biblioAnalysis(green_accepted_corr, sep = ";")
+
+
+options(width=100)
+summary_result_green_accepted  <- summary(object= result_green, k = 25, pause = F)
+```
+
+```{r}
+#| echo: false
+#| output: false
+result_not_green <- biblioAnalysis(not_green_corr, sep = ";")
+
+
+options(width=100)
+summary_result_not_green  <- summary(object= result_not_green, k = 25, pause = F)
+```
+
+```{r}
+#| echo: false
+#| output: false
+single_author_table_all_oa_cited<- rp_single_author_all_oa %>% select(c(AU, TI, TC, PY)) #Selected for single authors, publication title, amount of citations and publication year.
+single_author_table_all_oa_cited <- subset(single_author_table_all_oa_cited, PY =='2022' )#Limit to 2022
+single_author_table_all_oa_atleast_one_citation <- subset(single_author_table_all_oa_cited, TC >= 1 ) #Remove authors with no citations
+
+single_author_table_green_cited<- rp_single_author_green %>% select(c(AU, TI, TC, PY)) #Selected for single authors, publication title, amount of citations and publication year.
+single_author_table_green_cited <- subset(single_author_table_green_cited, PY =='2022' )#Limit to 2022
+single_author_table_green_atleast_one_citation <- subset(single_author_table_green_cited, TC >= 1 ) #Remove authors with no citations
+
+single_author_table_green_final_cited<- rp_single_author_green_final %>% select(c(AU, TI, TC, PY)) #Selected for single authors, publication title, amount of citations and publication year.
+single_author_table_green_final_cited <- subset(single_author_table_green_final_cited, PY =='2022' )#Limit to 2022
+single_author_table_green_final_atleast_one_citation <- subset(single_author_table_green_final_cited, TC >= 1 ) #Remove authors with no citations
+
+single_author_table_green_accepted_cited<- rp_single_author_green_accepted %>% select(c(AU, TI, TC, PY)) #Selected for single authors, publication title, amount of citations and publication year.
+single_author_table_green_accepted_cited <- subset(single_author_table_green_accepted_cited, PY =='2022' )#Limit to 2022
+single_author_table_green_accepted_atleast_one_citation <- subset(single_author_table_green_accepted_cited, TC >= 1 ) #Remove authors with no citations
+
+single_author_table_not_green_cited<- rp_single_author_not_green %>% select(c(AU, TI, TC, PY)) #Selected for single authors, publication title, amount of citations and publication year.
+single_author_table_not_green_cited <- subset(single_author_table_not_green_cited, PY =='2022' )#Limit to 2022
+single_author_table_not_green_atleast_one_citation <- subset(single_author_table_not_green_cited, TC >= 1 ) #Remove authors with no citations
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+single_author_table_all_oa_cited_status <- cbind(single_author_table_all_oa_cited, oa_status = "All Open Access")
+
+single_author_table_green_cited_status <- cbind(single_author_table_green_cited, oa_status = "Green")
+
+single_author_table_green_final_cited_status <- cbind(single_author_table_green_final_cited, oa_status = "Green Final")
+
+single_author_table_green_accepted_cited_status <- cbind(single_author_table_green_accepted_cited, oa_status = "Green Accepted")
+
+single_author_table_not_green_cited_status <- cbind(single_author_table_not_green_cited, oa_status = "Not")
+
+full_oa_for_analysis <- rbind(single_author_table_green_cited_status, single_author_table_green_final_cited_status, single_author_table_green_accepted_cited_status, single_author_table_not_green_cited_status)
+
+full_oa_for_analysis$cited <- ifelse(full_oa_for_analysis$TC>=1 & full_oa_for_analysis$TC>=1, 1, 0)
+
+full_oa_for_analysis <- full_oa_for_analysis %>% 
+  mutate(green_or_not = case_when(str_detect(oa_status, "Green|Green Final|Green Accepted" ) ~ "1",
+                           str_detect(oa_status, "Not" ) ~ "0"))
+
+model_all <- glm(cited ~ green_or_not ,data=full_oa_for_analysis, family=binomial)
+summary(model_all)
+```
+
+# Author Collaboration for Corresponding Authors
+
+Summary statistics : Size, Density, Transitivity, Diameter (length of shortest path between nodes in a network), Degree distribution, Degree centralization, Closeness centralization, Eigenvector centralization, Betweeness centralization, Average path length.
+
+## **All Open Access**
+
+#### Summary Statistics
+
+```{r}
+
+all_oa_corr <- all_oa_corr[!duplicated(all_oa_corr$DI),]
+all_oa_corr$SR <- NULL
+all_oa_corr$SR_FULL <-NULL ##Seemed to hold problem duplicates I couldn't get rid of without removing publictaions so I just dropped the columns for all_oa.Not useful anyway.
+net_matrix_all_oa <- biblioNetwork(all_oa_corr, analysis = "collaboration", network = "authors", sep = ";")
+net_stat_all_oa <- networkStat(net_matrix_all_oa)
+
+summary(net_stat_all_oa, k=10)
+```
+
+#### Page Rank
+
+```{r}
+net_all_oa_all<- networkStat(net_matrix_all_oa, stat = "all", type= "all") #Calculates many interesting things (including pagerank.)
+net_all_oa_interesting <- as.data.frame(net_all_oa_all[["vertex"]])
+all_oa_page_rank <- net_all_oa_interesting[with(net_all_oa_interesting,order(-vertexPageRank)),]
+
+all_oa_page_rank <- all_oa_page_rank[1:25,]
+all_oa_page_rank_top_25 <- all_oa_page_rank %>% select(c(vertexID, vertexPageRank))
+
+all_oa_page_rank_top_25
+```
+
+#### Network Plot
+
+(Need to figure out how to have large networks that aren't just hairballs)
+
+```{r}
+net_all_oa <- networkPlot(net_matrix_all_oa, n = 150, Title = "Collaboration Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = .5)
+
+```
+
+## **Green**
+
+#### Summary Statistics
+
+```{r}
+net_matrix_green <- biblioNetwork(green_corr, analysis = "collaboration", network = "authors", sep = ";")
+net_stat_green <- networkStat(net_matrix_green)
+summary(net_stat_green, k=10)
+
+```
+
+#### Page Rank
+
+```{r}
+net_green_all<- networkStat(net_matrix_green, stat = "all", type= "all") #Calculates many interesting things (including pagerank.)
+net_green_interesting <- as.data.frame(net_green_all[["vertex"]])
+green_page_rank <- net_green_interesting[with(net_green_interesting,order(-vertexPageRank)),]
+
+green_page_rank <- green_page_rank[1:25,]
+green_page_rank_top_25 <- green_page_rank %>% select(c(vertexID, vertexPageRank))
+
+green_page_rank_top_25
+```
+
+#### Network Plot
+
+```{r}
+net_green <- networkPlot(net_matrix_green, n = 150, Title = "Collaboration Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = 5)
+```
+
+## **Green Final**
+
+#### Summary Statistics
+
+```{r}
+net_matrix_green_final <- biblioNetwork(green_final_corr, analysis = "collaboration", network = "authors", sep = ";")
+net_stat_green_final <- networkStat(net_matrix_green_final)
+
+summary(net_stat_green_final, k=10)
+```
+
+#### Page Rank
+
+```{r}
+net_green_final_all<- networkStat(net_matrix_green_final, stat = "all", type= "all") #Calculates many interesting things (including pagerank.)
+net_green_final_interesting <- as.data.frame(net_green_final_all[["vertex"]])
+green_final_page_rank <- net_green_final_interesting[with(net_green_final_interesting,order(-vertexPageRank)),]
+
+green_final_page_rank <- green_final_page_rank[1:25,]
+green_final_page_rank_top_25 <- green_final_page_rank %>% select(c(vertexID, vertexPageRank))
+
+green_final_page_rank_top_25
+```
+
+#### Network Plot
+
+```{r}
+net_green_final <- networkPlot(net_matrix_green_final, n = 150, Title = "Collaboration Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = 1)
+```
+
+## **Green Accepted**
+
+### Summary Statistics
+
+```{r}
+net_matrix_green_accepted <- biblioNetwork(green_accepted_corr, analysis = "collaboration", network = "authors", sep = ";")
+net_stat_green_accepted <- networkStat(net_matrix_green_accepted)
+
+summary(net_stat_green_accepted, k=10)
+```
+
+### Page Rank
+
+```{r}
+net_green_accepted_all<- networkStat(net_matrix_green_accepted, stat = "all", type= "all") #Calculates many interesting things (including pagerank.)
+net_green_accepted_interesting <- as.data.frame(net_green_accepted_all[["vertex"]])
+green_accepted_page_rank <- net_green_accepted_interesting[with(net_green_accepted_interesting,order(-vertexPageRank)),]
+
+green_accepted_page_rank <- green_accepted_page_rank[1:25,]
+green_accepted_page_rank_top_25 <- green_accepted_page_rank %>% select(c(vertexID, vertexPageRank))
+
+green_accepted_page_rank_top_25
+```
+
+### Network Plot
+
+```{r}
+net_green_accepted <- networkPlot(net_matrix_green_accepted, n = 150, Title = "Collaboration Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=0.7,edgesize = 5)
+```
+
+## **Not Green**
+
+#### Summary Statistics
+
+```{r}
+net_matrix_not_green<- biblioNetwork(not_green_corr, analysis = "collaboration", network = "authors", sep = ";")
+net_stat_not_green <- networkStat(net_matrix_not_green)
+
+summary(net_stat_not_green, k=10)
+```
+
+#### Page Rank
+
+```{r}
+net_not_green_all<- networkStat(net_matrix_not_green, stat = "all", type= "all") #Calculates many interesting things (including pagerank.)
+net_not_green_interesting <- as.data.frame(net_not_green_all[["vertex"]])
+not_green_page_rank <- net_not_green_interesting[with(net_not_green_interesting,order(-vertexPageRank)),]
+
+not_green_page_rank <- not_green_page_rank[1:25,]
+not_green_page_rank_top_25 <- not_green_page_rank %>% select(c(vertexID, vertexPageRank))
+
+not_green_page_rank_top_25
+```
+
+#### Network Plot
+
+```{r}
+net_not_green <- networkPlot(net_matrix_not_green, n = 150, Title = "Collaboration Network", type = "fruchterman", size=T, remove.multiple=FALSE, labelsize=.7,edgesize = 5)
+```
+
+### Alternate Network Visualizations
+
+```{r}
+all_oa_graph <- igraph::graph.adjacency(net_matrix_all_oa                                                                             
+                                   , mode="undirected"                                                                   
+                                   , weighted=TRUE) 
+```
+
+```{r}
+clusterlouvain <- cluster_louvain(all_oa_graph)
+clusterlouvain
+```
+
+```{r}
+plot(all_oa_graph, vertex.color=rainbow(7, alpha=0.6)[clusterlouvain$membership])
+```
+
+## Hive Plots
+
+Taking igraphs from the bilbionetwork object.
+
+```{r}
+hive_green <- net_green[["graph"]]
+green_edge <- as_edgelist(hive_green)
+green_edge <- cbind(green_edge, oa_status = "Green")
+green_edge <- as.data.frame(green_edge)
+names(green_edge)[names(green_edge) == "V1"] <- "From"
+names(green_edge)[names(green_edge) == "V2"] <- "To"
+
+hive_green_accpeted <- net_green_accepted[["graph"]]
+green_accepted_edge <- as_edgelist(hive_green_accpeted)
+green_accepted_edge <- cbind(green_accepted_edge, oa_status = "Green Accepted")
+green_accepted_edge <- as.data.frame(green_accepted_edge)
+names(green_accepted_edge)[names(green_accepted_edge) == "V1"] <- "From"
+names(green_accepted_edge)[names(green_accepted_edge) == "V2"] <- "To"
+
+hive_green_final <- net_green_final[["graph"]]
+green_final_edge <- as_edgelist(hive_green_final)
+green_final_edge <- cbind(green_final_edge, oa_status = "Green Final")
+green_final_edge <- as.data.frame(green_final_edge)
+names(green_final_edge)[names(green_final_edge) == "V1"] <- "From"
+names(green_final_edge)[names(green_final_edge) == "V2"] <- "To"
+
+hive_not_green <- net_not_green[["graph"]]
+not_green_edge <- as_edgelist(hive_not_green)
+not_green_edge <- cbind(not_green_edge, oa_status = "Not Green")
+not_green_edge <- as.data.frame(not_green_edge)
+names(not_green_edge)[names(not_green_edge) == "V1"] <- "From"
+names(not_green_edge)[names(not_green_edge) == "V2"] <- "To"
+
+full_hive <- rbind(green_edge, green_accepted_edge, green_final_edge, not_green_edge)
+
+```
+
+The Hive plot below shows the collaborations between authors in terms of collaboration, differentiated by their open access.
+
+The large main hive plot lines are where the nodes (authors) are situated based on three categories. Having **few** collaborations (less than 5) having **medium** collaborations (between 5 and 15) and having **many** collaborations (more than 15) The curved lines signify and edge (collaboration/link between authors).
+
+```{r}
+graph <- graph_from_data_frame(full_hive)
+V(graph)$Collaboration <- degree(graph, mode = 'in')
+
+
+V(graph)$Collaboration <- factor(ifelse(V(graph)$Collaboration < 5, 'few', 
+                                         ifelse(V(graph)$Collaboration >= 15, 'many', 'medium')), 
+                                  levels = c('few', 'medium', 'many'))
+
+
+
+# Create the hive plot
+ggraph(graph, 'hive', axis = Collaboration, sort.by = 'degree') + 
+  geom_edge_hive(aes(colour = oa_status)) +
+  scale_color_manual(values = c("#16e01a", "#69d9db", "#9f4fe0","#06000a"), name = "Open Access Status") +
+   geom_axis_hive(aes(colour = Collaboration), size = 4, label = FALSE) + 
+  scale_color_manual(values = c("#06000a", "#4149d9", "#fce803"),
+                     labels = c('few', 'medium', 'many')) +
+  coord_fixed()
+
+
+
+```
+
+### Faceted Hive Plots
+
+Hive plots separated by open access for clearer visualization.
+
+```{r}
+ggraph(graph, 'hive', axis = Collaboration, sort.by = 'degree') + 
+  geom_edge_hive(aes(colour = oa_status)) + 
+  geom_axis_hive(aes(colour = Collaboration), size = 3, label = FALSE) + 
+  scale_color_manual(values = c("#06000a", "#4149d9", "#fce803"),
+                     labels = c('few', 'medium', 'many')) +
+  coord_fixed() +
+  facet_edges(~oa_status)
+
+```
