@@ -7,7 +7,8 @@ project:
     - Bibliometric Analysis.qmd
     - Network Attributes and Visualisations.qmd
   type: website
-
+  output-dir: docs
+  
 website:
   title: "Open Science Northumbria"
   page-navigation: true
