@@ -1,0 +1,196 @@
+---
+title: "BibTex Data"
+author: 
+  - name: "Thomas Pollet and Connor Malcolm"
+    affiliations: 
+     - name: "Northumbria University"
+date: "2022-01-30"
+date-modified: "`r format(Sys.time(), '%Y %B, %d')`"
+title-block-banner: true
+abstract: "Bilbiometric data acquired from Scopus and Web of Science and packages used."
+---
+
+## Libraries
+
+Packages used across documents.
+
+```{r}
+#| output: false
+library(tidyverse)
+library(yarrr)
+library(wordcloud)
+library(wordcloud2)
+library(bibliometrix)
+library(tidyverse)
+library(igraph)
+library(tidygraph)
+library(ggraph)
+library(EGAnet)
+library(papaja)
+library(janitor)
+library(gtools)
+library(data.table)
+library(readr)
+library(ggplot2)
+library(HiveR)
+library(RBioFabric) #Installation: install.packages("remotes")
+                    #remotes::install_github("wjrl/RBioFabric")
+```
+
+# Read in Data
+
+Date of downloaded BibTex files: **16/03/2023**
+
+BibTex files available here: (insert dropbox link here?)
+
+## Scopus
+
+2000 max BibTex for export
+
+### All Open Access
+
+Search terms for all open access, scopus:
+
+**AFFIL(*northumbria* AND *university*) AND (*OA* (*all*)) AND (LIMIT-TO(PUBYEAR, *2023*) OR LIMIT-TO(PUBYEAR,*2022*))**
+
+```{r}
+#| output: false
+
+scopus1000df <- convert2df(file = "scopus2000alloa.bib" , dbsource = "scopus", format = "bibtex")
+scopusRESTdf <- convert2df(file = "scopusall30.bib" , dbsource = "scopus", format = "bibtex")
+scopus_all_oa<- merge(scopusRESTdf, scopus1000df, all = TRUE) #Scopus has a 2000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+
+
+```
+
+### Green Open Access
+
+Search terms for all green open access, scopus:
+
+**AFFIL(northumbria AND university) AND OA(repository) AND ( LIMIT-TO ( PUBYEAR,2023) OR LIMIT-TO ( PUBYEAR,2022))**
+
+```{r}
+#| output: false
+
+file <- "scopusGreen.bib"
+
+scopus_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+
+```
+
+### Green Final Open Access
+
+Search terms for final green open access, scopus:
+
+**AFFIL(northumbria AND university) AND OA(repositoryvor) AND ( LIMIT-TO ( PUBYEAR,2023) OR LIMIT-TO ( PUBYEAR,2022))**
+
+```{r}
+#| output: false
+
+file <- "scopusGREENFINALOA.bib"
+
+scopus_green_final <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+
+```
+
+### Green Accepted Open Access
+
+Search terms for accepted green open access, scopus:
+
+**AFFIL(northumbria AND university) AND OA(repositoryam) AND NOT OA(repositoryvor) AND ( LIMIT-TO ( PUBYEAR,2023) OR LIMIT-TO ( PUBYEAR,2022))**
+
+```{r}
+#| output: false
+
+file <- "scopusGREENACCEPTEDOA.bib"
+
+scopus_green_accepted <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+### Not Green Open Access
+
+Search terms for all other types of open access (gold, hybrid gold and bronze), scopus:
+
+**AFFIL(northumbria AND university) AND NOT OA(repository) AND ( LIMIT-TO ( PUBYEAR,2023) OR LIMIT-TO ( PUBYEAR,2022))**
+
+```{r}
+#| output: false
+
+file <- "scopusNOTGREEN.bib"
+
+scopus_not_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+## Web of Science
+
+1000 max BibTex for export
+
+### All Open Access
+
+Link to query for all open access:
+
+[**https://www.webofscience.com/wos/woscc/summary/76daec0d-afe7-4d19-9b33-afbcaf4ac927-797e5bf7/relevance/1**](link)
+
+```{r}
+#| output: false
+ 
+wos1000df <- convert2df(file = "wosALLOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTdf <- convert2df(file = "wosALLrest.bib" , dbsource = "wos", format = "bibtex")
+wos_all_oa<- merge(wosRESTdf, wos1000df, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```
+
+### All Green Open Access
+
+Link to query for all open access:
+
+[**https://www.webofscience.com/wos/woscc/summary/c535d015-7a95-4b5b-9dca-0309ca62c4f2-797fe8f3/relevance/1**](link)
+
+```{r}
+#| output: false
+
+file <- "wosAllGreen.bib"
+
+wos_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+### Not Green Open Access
+
+Link to query for not green open access:
+
+[**https://www.webofscience.com/wos/woscc/summary/3a3b1916-43f6-48a3-a03e-fc9e4041374b-7980065f/relevance/1**](link)
+
+```{r}
+#| output: false
+
+file <- "wosNOTGREEN.bib"
+
+wos_not_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+### Green Final Open Access
+
+Link to query for final open access:
+
+[**https://www.webofscience.com/wos/woscc/summary/26c9a11c-54fa-4bed-80d9-7c1592eb28c7-798058d2/relevance/1**](link)
+
+```{r}
+#| output: false
+
+file <- "wosFinal.bib"
+
+wos_green_final <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+### Green Accepted Open Access
+
+Link to query for accepted open access:
+
+[**https://www.webofscience.com/wos/woscc/summary/ff65467a-69e4-480c-8e34-bd8788e4fb56-79807445/relevance/1**](link)
+
+```{r}
+#| output: false
+
+wos1000Accepteddf <- convert2df(file = "wosAcceptedOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTAccepteddf <- convert2df(file = "wosAcceptedrest.bib" , dbsource = "wos", format = "bibtex")
+wos_green_accepted<- merge(wosRESTAccepteddf, wos1000Accepteddf, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```

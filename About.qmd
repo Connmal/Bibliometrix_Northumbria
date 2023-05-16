@@ -1,0 +1,29 @@
+---
+title: "About"
+author: 
+  - name: "Thomas Pollet and Connor Malcolm"
+    affiliations: 
+     - name: "Northumbria University"
+---
+
+A R based document looking at bibliography data from Scopus and Web of Science based on cross department researchers in Northumbria University, who publish open access articles.
+
+All Data is publicly available and all search terms used on the bibliographic databases are available as a part of the document.
+
+The publications were split into types of open access.
+
+**Green** : Free to read at repository. Published or Accepted. (Combination of Final and Accepted)
+
+**Green Final** : Published article that is free to read at repository.
+
+**Green Accepted** : Accepted for publication that is free to read at repository but not yet published.
+
+**All Open Access** : Any kind of open access.
+
+**Not Green** : A combination of Bronze, Gold and Hybrid Gold
+
+*Bronze* : Published or accepted where author chose to provide permanent or temporary open access. Bronze is applied if there is a license other than a creative common license. Or no licence at all.
+
+*Gold* : Published with a creative common license and in an only open access journal, available on publisher platform.
+
+*Hybrid Gold* : Published with a creative common license. Published in a journal that allows for the choice of publishing open access.

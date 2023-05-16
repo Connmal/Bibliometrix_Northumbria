@@ -1,0 +1,445 @@
+---
+title: "Word Clouds"
+author: 
+  - name: "Thomas Pollet and Connor Malcolm"
+    affiliations: 
+     - name: "Northumbria University"
+date: "2022-01-30"
+date-modified: "`r format(Sys.time(), '%Y %B, %d')`"
+title-block-banner: true
+abstract: "Making Wordclouds for Authors, Keywords and Publication"
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(tidyverse)
+library(yarrr)
+library(wordcloud)
+library(wordcloud2)
+library(bibliometrix)
+library(tidyverse)
+library(igraph)
+library(tidygraph)
+library(ggraph)
+library(EGAnet)
+library(papaja)
+library(janitor)
+library(gtools)
+library(data.table)
+library(readr)
+library(ggplot2)
+library(HiveR)
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+scopus1000df <- convert2df(file = "scopus2000alloa.bib" , dbsource = "scopus", format = "bibtex")
+scopusRESTdf <- convert2df(file = "scopusall30.bib" , dbsource = "scopus", format = "bibtex")
+scopus_all_oa<- merge(scopusRESTdf, scopus1000df, all = TRUE) #Scopus has a 2000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGreen.bib"
+
+scopus_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGREENFINALOA.bib"
+
+scopus_green_final <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusGREENACCEPTEDOA.bib"
+
+scopus_green_accepted <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "scopusNOTGREEN.bib"
+
+scopus_not_green <- convert2df(file = file , dbsource = "scopus", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+ 
+wos1000df <- convert2df(file = "wosALLOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTdf <- convert2df(file = "wosALLrest.bib" , dbsource = "wos", format = "bibtex")
+wos_all_oa<- merge(wosRESTdf, wos1000df, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosAllGreen.bib"
+
+wos_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosNOTGREEN.bib"
+
+wos_not_green <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+file <- "wosFinal.bib"
+
+wos_green_final <- convert2df(file = file , dbsource = "wos", format = "bibtex")
+```
+
+```{r}
+#| echo: false
+#| output: false
+
+wos1000Accepteddf <- convert2df(file = "wosAcceptedOA1000.bib" , dbsource = "wos", format = "bibtex")
+wosRESTAccepteddf <- convert2df(file = "wosAcceptedrest.bib" , dbsource = "wos", format = "bibtex")
+wos_green_accepted<- merge(wosRESTAccepteddf, wos1000Accepteddf, all = TRUE)#Web of science has a 1000 limit for BibTex files so All Open Access needed to be downloaded into two .bib files and then merged to one
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_all_oa_names <- intersect(names(scopus_all_oa), names(wos_all_oa)) #Find common column names
+scopus_wos_all_oa <- merge(scopus_all_oa, wos_all_oa, by=common_col_all_oa_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_names <- intersect(names(scopus_green), names(wos_green)) #Find common column names
+scopus_wos_green <- merge(scopus_green, wos_green, by=common_col_green_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_final_names <- intersect(names(scopus_green_final), names(wos_green_final)) #Find common column names
+scopus_wos_green_final <- merge(scopus_green_final, wos_green_final, by=common_col_green_final_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_green_accepted_names <- intersect(names(scopus_green_accepted), names(wos_green_accepted)) #Find common column names
+scopus_wos_green_accepted <- merge(scopus_green_accepted, wos_green_accepted, by=common_col_green_accepted_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+common_col_not_green_names <- intersect(names(scopus_not_green), names(wos_not_green)) #Find common column names
+scopus_wos_not_green <- merge(scopus_not_green, wos_not_green, by=common_col_not_green_names, all.x=TRUE) # Merge data by common column names to check if scopus missed any publications wos has.
+```
+
+```{r}
+#| echo: false
+#| output: false
+all_oa_corr <- scopus_wos_all_oa %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+all_oa_single_authors<- all_oa_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_corr <- scopus_wos_green %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_single_authors<- green_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_final_corr <- scopus_wos_green_final %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_final_single_authors<- green_final_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+green_accepted_corr <- scopus_wos_green_accepted %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+green_accepted_single_authors<- green_accepted_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+
+not_green_corr <- scopus_wos_not_green %>% dplyr::filter(grepl("@northumbria",RP, ignore.case = TRUE))
+not_green_single_authors<- not_green_corr %>% 
+    mutate(AU = strsplit(as.character(AU), ";")) %>%  
+    unnest(AU) #Individual authors
+```
+
+```{r}
+#| echo: false
+#| output: false
+all_oa_single_authors$RP <- sub(';.*', "" , as.character(all_oa_single_authors$RP))
+all_oa_single_authors$RP <- gsub(',',"", as.character(all_oa_single_authors$RP))
+all_oa_single_authors$RP <- gsub('\\.',"", as.character(all_oa_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_all_oa <- subset(all_oa_single_authors, AU == RP)
+
+green_single_authors$RP <- sub(';.*', "" , as.character(green_single_authors$RP))
+green_single_authors$RP <- gsub(',',"", as.character(green_single_authors$RP))
+green_single_authors$RP <- gsub('\\.',"", as.character(green_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green <- subset(green_single_authors, AU == RP)
+
+green_final_single_authors$RP <- sub(';.*', "" , as.character(green_final_single_authors$RP))
+green_final_single_authors$RP <- gsub(',',"", as.character(green_final_single_authors$RP))
+green_final_single_authors$RP <- gsub('\\.',"", as.character(green_final_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green_final <- subset(green_final_single_authors, AU == RP)
+
+green_accepted_single_authors$RP <- sub(';.*', "" , as.character(green_accepted_single_authors$RP))
+green_accepted_single_authors$RP <- gsub(',',"", as.character(green_accepted_single_authors$RP))
+green_accepted_single_authors$RP <- gsub('\\.',"", as.character(green_accepted_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_green_accepted <- subset(green_accepted_single_authors, AU == RP)
+
+not_green_single_authors$RP <- sub(';.*', "" , as.character(not_green_single_authors$RP))
+not_green_single_authors$RP <- gsub(',',"", as.character(not_green_single_authors$RP))
+not_green_single_authors$RP <- gsub('\\.',"", as.character(not_green_single_authors$RP))
+#Removing problem characters fo filtering to just corresponding authors.
+rp_single_author_not_green <- subset(not_green_single_authors, AU == RP)
+```
+
+```{r}
+#| echo: false
+#| output: false
+duplicates_green_green<-inner_join(scopus_wos_not_green, scopus_wos_green_final, scopus_wos_green_accepted, by='DI')
+
+duplicates_not_green_green_final<-inner_join(scopus_wos_not_green, scopus_wos_green_final, scopus_wos_green, by='DI')
+
+duplicates_not_green_green_acccepted<-inner_join(scopus_wos_not_green, scopus_wos_green_accepted, scopus_wos_green, by='DI')
+
+duplicates_green_final_green_acccepted<-inner_join(scopus_green_final, scopus_wos_green_accepted, scopus_wos_green, by='DI')
+```
+
+# Word Clouds
+
+Preparation for Word Clouds
+
+```{r}
+corr_table_all_oa<-table(rp_single_author_all_oa$AU)
+corr_table_all_oa_sorted <- corr_table_all_oa%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green<-table(rp_single_author_green$AU)
+corr_table_green_sorted <- corr_table_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green_final<-table(rp_single_author_green_final$AU)
+corr_table_green_final_sorted <- corr_table_green_final%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_green_accepted<-table(rp_single_author_green_accepted$AU)
+corr_table_green_accepted_sorted <- corr_table_green_accepted%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+corr_table_not_green<-table(rp_single_author_not_green$AU)
+corr_table_not_green_sorted <- corr_table_not_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+```
+
+Separate tables for Open Access publications
+
+```{r}
+SO_table_all_oa<-table(scopus_wos_all_oa$SO)
+SO_table_all_oa_sorted <- SO_table_all_oa%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green<-table(scopus_wos_green$SO)
+SO_table_green_sorted <- SO_table_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green_final<-table(scopus_wos_green_final$SO)
+SO_table_green_final_sorted <- SO_table_green_final%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_green_accepted<-table(scopus_wos_green_accepted$SO)
+SO_table_green_accepted_sorted <- SO_table_green_accepted%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+
+SO_table_not_green<-table(scopus_wos_not_green$SO)
+SO_table_not_green_sorted <- SO_table_not_green%>%                 
+  as.data.frame() %>% 
+  arrange(desc(Freq))
+```
+
+## Publications
+
+Yarrr package seems to be best for vibrant and differing colours!
+
+### **All Open Access**
+
+```{r}
+set.seed(1404)
+
+DF_SO_table_all_oa_sorted <- as.data.frame(SO_table_all_oa_sorted)
+wourdcloud_green_publications<- wordcloud(words = DF_SO_table_all_oa_sorted$Var1, freq = DF_SO_table_all_oa_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(1.2,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+##To fit long publication names had to make the words pretty small
+```
+
+### **Green**
+
+```{r}
+DF_SO_table_green_sorted <- as.data.frame(SO_table_green_sorted)
+wourdcloud_green_publications<- wordcloud(words = DF_SO_table_green_sorted$Var1, freq = DF_SO_table_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(1.2,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+##To fit long publication names had to make the words pretty small
+```
+
+### **Green Final**
+
+```{r}
+DF_SO_table_green_final_sorted <- as.data.frame(SO_table_green_final_sorted)
+wourdcloud_green_final_publications<- wordcloud(words = DF_SO_table_green_final_sorted$Var1, freq = DF_SO_table_green_final_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(0.8,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+##To fit long publication names had to make the words pretty small
+```
+
+### **Green Accepted**
+
+```{r}
+DF_SO_table_green_accepted_sorted <- as.data.frame(SO_table_green_accepted_sorted)
+wourdcloud_green_accepted_publications<- wordcloud(words = DF_SO_table_green_accepted_sorted$Var1, freq = DF_SO_table_green_accepted_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(0.8,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+##To fit long publication names had to make the words pretty small
+```
+
+### **Not Green**
+
+```{r}
+DF_SO_table_not_green_sorted <- as.data.frame(SO_table_not_green_sorted)
+wourdcloud_not_green_publications<- wordcloud(words = DF_SO_table_not_green_sorted$Var1, freq = DF_SO_table_not_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(.25,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+##To fit long publication names had to make the words pretty small
+```
+
+## Corresponding Authors
+
+### **All Open Access**
+
+```{r}
+df_corr_table_all_oa_sorted <- as.data.frame(corr_table_all_oa_sorted)
+wourdcloud_all_oa_publications<- wordcloud(words = df_corr_table_all_oa_sorted$Var1, freq = df_corr_table_all_oa_sorted$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1, 1), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Green**
+
+```{r}
+df_corr_table_green_sorted <- as.data.frame(corr_table_green_sorted)
+wourdcloud_green_publications<- wordcloud(words = df_corr_table_green_sorted$Var1, freq = df_corr_table_green_sorted$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1, 1), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+
+```
+
+### **Green Final**
+
+```{r}
+df_corr_table_green_final_sorted <- as.data.frame(corr_table_green_final_sorted)
+wourdcloud_green_final_publications<- wordcloud(words = df_corr_table_green_final_sorted$Var1, freq = df_corr_table_green_final_sorted$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1, 1), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Green Accepted**
+
+```{r}
+df_corr_table_green_accepted_sorted <- as.data.frame(corr_table_green_accepted_sorted)
+wourdcloud_green_publications<- wordcloud(words = df_corr_table_green_accepted_sorted$Var1, freq = df_corr_table_green_accepted_sorted$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1, 1), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+
+```
+
+### **Not Green**
+
+```{r}
+df_corr_table_not_green_sorted <- as.data.frame(corr_table_not_green_sorted)
+wourdcloud_not_green_publications<- wordcloud(words = df_corr_table_not_green_sorted$Var1, freq = df_corr_table_not_green_sorted$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1, 1), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+
+```
+
+## Keywords
+
+### **All Open Access**
+
+```{r}
+all_oa_keywords<- scopus_wos_all_oa %>% separate_rows(DE, sep = "; ") %>% select(DE) 
+all_oa_keywords<- all_oa_keywords %>% 
+  count(DE)
+all_oa_keywords<- na.omit(all_oa_keywords)
+colnames(all_oa_keywords)[2]<- "Freq"
+wourdcloud_just_all_oa_keywords<- wordcloud(words = all_oa_keywords$DE, freq = all_oa_keywords$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1.5,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Green**
+
+```{r}
+green_keywords<- scopus_wos_green %>% separate_rows(DE, sep = "; ") %>% select(DE) 
+green_keywords<- green_keywords %>% 
+  count(DE)
+green_keywords<- na.omit(green_keywords)
+colnames(green_keywords)[2]<- "Freq"
+wourdcloud_just_green_keywords<- wordcloud(words = green_keywords$DE, freq = green_keywords$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1.5,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Green Final**
+
+```{r}
+green_final_keywords<- scopus_wos_green_final %>% separate_rows(DE, sep = "; ") %>% select(DE) 
+green_final_keywords<- green_final_keywords %>% 
+  count(DE)
+green_final_keywords<- na.omit(green_final_keywords)
+colnames(green_final_keywords)[2]<- "Freq"
+wourdcloud_just_green_final_keywords<- wordcloud(words = green_final_keywords$DE, freq = green_final_keywords$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1.5,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Green Accepted**
+
+```{r}
+green_accepted_keywords<- scopus_wos_green_accepted %>% separate_rows(DE, sep = "; ") %>% select(DE) 
+green_accepted_keywords<- green_accepted_keywords %>% 
+  count(DE)
+green_accepted_keywords<- na.omit(green_accepted_keywords)
+colnames(green_accepted_keywords)[2]<- "Freq"
+wourdcloud_just_green_accepted_keywords<- wordcloud(words = green_accepted_keywords$DE, freq = green_accepted_keywords$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1.5,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```
+
+### **Not Green**
+
+```{r}
+not_green_keywords<- scopus_wos_not_green %>% separate_rows(DE, sep = "; ") %>% select(DE) 
+not_green_keywords<- not_green_keywords %>% 
+  count(DE)
+not_green_keywords<- na.omit(not_green_keywords)
+colnames(not_green_keywords)[2]<- "Freq"
+wourdcloud_just_not_green_keywords<- wordcloud(words = not_green_keywords$DE, freq = not_green_keywords$Freq, min.freq = 1, max.words=50, random.order=FALSE, scale=c(1.5,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 50
+```

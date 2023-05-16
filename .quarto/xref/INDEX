@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "3ce9796d"
+  },
+  "about.qmd": {
+    "about.html": "4e87b5f9"
+  },
+  "Quatro_Bilbio.qmd": {
+    "Quatro_Bilbio.html": "f82ae271"
+  },
+  "Quatro_Biblio.qmd": {
+    "Quatro_Biblio.html": "9ee05a6e"
+  },
+  "About.qmd": {
+    "About.html": "21946738"
+  },
+  "BibTex Data Import.qmd": {
+    "BibTex Data Import.html": "9d1a0dc1"
+  },
+  "Data Cleaning.qmd": {
+    "Data Cleaning.html": "5288a1ab"
+  },
+  "Word Clouds.qmd": {
+    "Word Clouds.html": "3312fca7"
+  },
+  "Bibliometric Analysis.qmd": {
+    "Bibliometric Analysis.html": "b782248d"
+  },
+  "Network Attributes and Visualisations.qmd": {
+    "Network Attributes and Visualisations.html": "6d5b2b4d"
+  }
+}
