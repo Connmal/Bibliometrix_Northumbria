@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Pollet and Connor Malcolm">
+<meta name="dcterms.date" content="2022-01-30">
+
+<title>Open Science Northumbria - Word Clouds</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Bibliometric Analysis.html" rel="next">
+<link href="./Data Cleaning.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Word Clouds</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">Word Clouds</h1>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      Thomas Pollet and Connor Malcolm 
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              Northumbria University
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 30, 2022</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">May 17, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  <div>
+    <div class="abstract">
+      <div class="abstract-title">Abstract</div>
+      Making Wordclouds for Authors, Keywords and Publication
+    </div>
+  </div>
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Open Science Northumbria</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Main</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./About.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BibTex Data Import.html" class="sidebar-item-text sidebar-link">BibTex Data</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data Cleaning.html" class="sidebar-item-text sidebar-link">Data Cleaning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Word Clouds.html" class="sidebar-item-text sidebar-link active">Word Clouds</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Bibliometric Analysis.html" class="sidebar-item-text sidebar-link">Bibliometric Analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Network Attributes and Visualisations.html" class="sidebar-item-text sidebar-link">Network Attributes and Visualisations</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#word-clouds" id="toc-word-clouds" class="nav-link active" data-scroll-target="#word-clouds">Word Clouds</a>
+  <ul class="collapse">
+  <li><a href="#publications" id="toc-publications" class="nav-link" data-scroll-target="#publications">Publications</a>
+  <ul class="collapse">
+  <li><a href="#all-open-access" id="toc-all-open-access" class="nav-link" data-scroll-target="#all-open-access"><strong>All Open Access</strong></a></li>
+  <li><a href="#green" id="toc-green" class="nav-link" data-scroll-target="#green"><strong>Green</strong></a></li>
+  <li><a href="#green-final" id="toc-green-final" class="nav-link" data-scroll-target="#green-final"><strong>Green Final</strong></a></li>
+  <li><a href="#green-accepted" id="toc-green-accepted" class="nav-link" data-scroll-target="#green-accepted"><strong>Green Accepted</strong></a></li>
+  <li><a href="#not-green" id="toc-not-green" class="nav-link" data-scroll-target="#not-green"><strong>Not Green</strong></a></li>
+  </ul></li>
+  <li><a href="#corresponding-authors" id="toc-corresponding-authors" class="nav-link" data-scroll-target="#corresponding-authors">Corresponding Authors</a>
+  <ul class="collapse">
+  <li><a href="#all-open-access-1" id="toc-all-open-access-1" class="nav-link" data-scroll-target="#all-open-access-1"><strong>All Open Access</strong></a></li>
+  <li><a href="#green-1" id="toc-green-1" class="nav-link" data-scroll-target="#green-1"><strong>Green</strong></a></li>
+  <li><a href="#green-final-1" id="toc-green-final-1" class="nav-link" data-scroll-target="#green-final-1"><strong>Green Final</strong></a></li>
+  <li><a href="#green-accepted-1" id="toc-green-accepted-1" class="nav-link" data-scroll-target="#green-accepted-1"><strong>Green Accepted</strong></a></li>
+  <li><a href="#not-green-1" id="toc-not-green-1" class="nav-link" data-scroll-target="#not-green-1"><strong>Not Green</strong></a></li>
+  </ul></li>
+  <li><a href="#keywords" id="toc-keywords" class="nav-link" data-scroll-target="#keywords">Keywords</a>
+  <ul class="collapse">
+  <li><a href="#all-open-access-2" id="toc-all-open-access-2" class="nav-link" data-scroll-target="#all-open-access-2"><strong>All Open Access</strong></a></li>
+  <li><a href="#green-2" id="toc-green-2" class="nav-link" data-scroll-target="#green-2"><strong>Green</strong></a></li>
+  <li><a href="#green-final-2" id="toc-green-final-2" class="nav-link" data-scroll-target="#green-final-2"><strong>Green Final</strong></a></li>
+  <li><a href="#green-accepted-2" id="toc-green-accepted-2" class="nav-link" data-scroll-target="#green-accepted-2"><strong>Green Accepted</strong></a></li>
+  <li><a href="#not-green-2" id="toc-not-green-2" class="nav-link" data-scroll-target="#not-green-2"><strong>Not Green</strong></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
+<section id="word-clouds" class="level1">
+<h1>Word Clouds</h1>
+<p>Preparation for Word Clouds</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>corr_table_all_oa<span class="ot">&lt;-</span><span class="fu">table</span>(rp_single_author_all_oa<span class="sc">$</span>AU)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>corr_table_all_oa_sorted <span class="ot">&lt;-</span> corr_table_all_oa<span class="sc">%&gt;%</span>                 </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>corr_table_green<span class="ot">&lt;-</span><span class="fu">table</span>(rp_single_author_green<span class="sc">$</span>AU)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>corr_table_green_sorted <span class="ot">&lt;-</span> corr_table_green<span class="sc">%&gt;%</span>                 </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>corr_table_green_final<span class="ot">&lt;-</span><span class="fu">table</span>(rp_single_author_green_final<span class="sc">$</span>AU)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>corr_table_green_final_sorted <span class="ot">&lt;-</span> corr_table_green_final<span class="sc">%&gt;%</span>                 </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>corr_table_green_accepted<span class="ot">&lt;-</span><span class="fu">table</span>(rp_single_author_green_accepted<span class="sc">$</span>AU)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>corr_table_green_accepted_sorted <span class="ot">&lt;-</span> corr_table_green_accepted<span class="sc">%&gt;%</span>                 </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>corr_table_not_green<span class="ot">&lt;-</span><span class="fu">table</span>(rp_single_author_not_green<span class="sc">$</span>AU)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>corr_table_not_green_sorted <span class="ot">&lt;-</span> corr_table_not_green<span class="sc">%&gt;%</span>                 </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Separate tables for Open Access publications</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SO_table_all_oa<span class="ot">&lt;-</span><span class="fu">table</span>(scopus_wos_all_oa<span class="sc">$</span>SO)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>SO_table_all_oa_sorted <span class="ot">&lt;-</span> SO_table_all_oa<span class="sc">%&gt;%</span>                 </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>SO_table_green<span class="ot">&lt;-</span><span class="fu">table</span>(scopus_wos_green<span class="sc">$</span>SO)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>SO_table_green_sorted <span class="ot">&lt;-</span> SO_table_green<span class="sc">%&gt;%</span>                 </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>SO_table_green_final<span class="ot">&lt;-</span><span class="fu">table</span>(scopus_wos_green_final<span class="sc">$</span>SO)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>SO_table_green_final_sorted <span class="ot">&lt;-</span> SO_table_green_final<span class="sc">%&gt;%</span>                 </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>SO_table_green_accepted<span class="ot">&lt;-</span><span class="fu">table</span>(scopus_wos_green_accepted<span class="sc">$</span>SO)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>SO_table_green_accepted_sorted <span class="ot">&lt;-</span> SO_table_green_accepted<span class="sc">%&gt;%</span>                 </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>SO_table_not_green<span class="ot">&lt;-</span><span class="fu">table</span>(scopus_wos_not_green<span class="sc">$</span>SO)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>SO_table_not_green_sorted <span class="ot">&lt;-</span> SO_table_not_green<span class="sc">%&gt;%</span>                 </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Freq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="publications" class="level2">
+<h2 class="anchored" data-anchor-id="publications">Publications</h2>
+<p>Yarrr package seems to be best for vibrant and differing colours!</p>
+<section id="all-open-access" class="level3">
+<h3 class="anchored" data-anchor-id="all-open-access"><strong>All Open Access</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1404</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>DF_SO_table_all_oa_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_all_oa_sorted)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_all_oa_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_all_oa_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.2</span>,<span class="fl">0.05</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##To fit long publication names had to make the words pretty small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="green" class="level3">
+<h3 class="anchored" data-anchor-id="green"><strong>Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_green_sorted)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.2</span>,<span class="fl">0.05</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">##To fit long publication names had to make the words pretty small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="green-final" class="level3">
+<h3 class="anchored" data-anchor-id="green-final"><strong>Green Final</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_green_final_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_green_final_sorted)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_final_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_green_final_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_green_final_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.05</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##To fit long publication names had to make the words pretty small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="green-accepted" class="level3">
+<h3 class="anchored" data-anchor-id="green-accepted"><strong>Green Accepted</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_green_accepted_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_green_accepted_sorted)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_accepted_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_green_accepted_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_green_accepted_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.05</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">##To fit long publication names had to make the words pretty small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="not-green" class="level3">
+<h3 class="anchored" data-anchor-id="not-green"><strong>Not Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_not_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_not_green_sorted)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_not_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(.<span class="dv">25</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">##To fit long publication names had to make the words pretty small</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="corresponding-authors" class="level2">
+<h2 class="anchored" data-anchor-id="corresponding-authors">Corresponding Authors</h2>
+<section id="all-open-access-1" class="level3">
+<h3 class="anchored" data-anchor-id="all-open-access-1"><strong>All Open Access</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_corr_table_all_oa_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table_all_oa_sorted)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_all_oa_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> df_corr_table_all_oa_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> df_corr_table_all_oa_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-1" class="level3">
+<h3 class="anchored" data-anchor-id="green-1"><strong>Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_corr_table_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table_green_sorted)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> df_corr_table_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> df_corr_table_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-final-1" class="level3">
+<h3 class="anchored" data-anchor-id="green-final-1"><strong>Green Final</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_corr_table_green_final_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table_green_final_sorted)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_final_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> df_corr_table_green_final_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> df_corr_table_green_final_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-accepted-1" class="level3">
+<h3 class="anchored" data-anchor-id="green-accepted-1"><strong>Green Accepted</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_corr_table_green_accepted_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table_green_accepted_sorted)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> df_corr_table_green_accepted_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> df_corr_table_green_accepted_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="not-green-1" class="level3">
+<h3 class="anchored" data-anchor-id="not-green-1"><strong>Not Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_corr_table_not_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table_not_green_sorted)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_not_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> df_corr_table_not_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> df_corr_table_not_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="keywords" class="level2">
+<h2 class="anchored" data-anchor-id="keywords">Keywords</h2>
+<section id="all-open-access-2" class="level3">
+<h3 class="anchored" data-anchor-id="all-open-access-2"><strong>All Open Access</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>all_oa_keywords<span class="ot">&lt;-</span> scopus_wos_all_oa <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(DE, <span class="at">sep =</span> <span class="st">"; "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(DE) </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>all_oa_keywords<span class="ot">&lt;-</span> all_oa_keywords <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(DE)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>all_oa_keywords<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(all_oa_keywords)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(all_oa_keywords)[<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="st">"Freq"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>wourdcloud_just_all_oa_keywords<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> all_oa_keywords<span class="sc">$</span>DE, <span class="at">freq =</span> all_oa_keywords<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-2" class="level3">
+<h3 class="anchored" data-anchor-id="green-2"><strong>Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>green_keywords<span class="ot">&lt;-</span> scopus_wos_green <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(DE, <span class="at">sep =</span> <span class="st">"; "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(DE) </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>green_keywords<span class="ot">&lt;-</span> green_keywords <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(DE)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>green_keywords<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(green_keywords)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(green_keywords)[<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="st">"Freq"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>wourdcloud_just_green_keywords<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> green_keywords<span class="sc">$</span>DE, <span class="at">freq =</span> green_keywords<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-final-2" class="level3">
+<h3 class="anchored" data-anchor-id="green-final-2"><strong>Green Final</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>green_final_keywords<span class="ot">&lt;-</span> scopus_wos_green_final <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(DE, <span class="at">sep =</span> <span class="st">"; "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(DE) </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>green_final_keywords<span class="ot">&lt;-</span> green_final_keywords <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(DE)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>green_final_keywords<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(green_final_keywords)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(green_final_keywords)[<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="st">"Freq"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>wourdcloud_just_green_final_keywords<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> green_final_keywords<span class="sc">$</span>DE, <span class="at">freq =</span> green_final_keywords<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="green-accepted-2" class="level3">
+<h3 class="anchored" data-anchor-id="green-accepted-2"><strong>Green Accepted</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>green_accepted_keywords<span class="ot">&lt;-</span> scopus_wos_green_accepted <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(DE, <span class="at">sep =</span> <span class="st">"; "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(DE) </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>green_accepted_keywords<span class="ot">&lt;-</span> green_accepted_keywords <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(DE)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>green_accepted_keywords<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(green_accepted_keywords)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(green_accepted_keywords)[<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="st">"Freq"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>wourdcloud_just_green_accepted_keywords<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> green_accepted_keywords<span class="sc">$</span>DE, <span class="at">freq =</span> green_accepted_keywords<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="not-green-2" class="level3">
+<h3 class="anchored" data-anchor-id="not-green-2"><strong>Not Green</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>not_green_keywords<span class="ot">&lt;-</span> scopus_wos_not_green <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(DE, <span class="at">sep =</span> <span class="st">"; "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(DE) </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>not_green_keywords<span class="ot">&lt;-</span> not_green_keywords <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(DE)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>not_green_keywords<span class="ot">&lt;-</span> <span class="fu">na.omit</span>(not_green_keywords)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(not_green_keywords)[<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="st">"Freq"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>wourdcloud_just_not_green_keywords<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> not_green_keywords<span class="sc">$</span>DE, <span class="at">freq =</span> not_green_keywords<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">50</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Word-Clouds_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Data Cleaning.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Data Cleaning</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Bibliometric Analysis.html" class="pagination-link">
+        <span class="nav-page-text">Bibliometric Analysis</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
