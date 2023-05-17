@@ -7,7 +7,7 @@ author:
 date: "2022-01-30"
 date-modified: "`r format(Sys.time(), '%Y %B, %d')`"
 title-block-banner: true
-abstract: "Analysis of Bilbiograpgic data based on the Bibliometrix package."
+abstract: "Analysis of Bilbiographic data based on the Bibliometrix package."
 ---
 
 ```{r}
