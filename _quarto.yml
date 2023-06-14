@@ -6,6 +6,7 @@ project:
     - Word Clouds.qmd
     - Bibliometric Analysis.qmd
     - Network Attributes and Visualisations.qmd
+    - PLOS and OSF.qmd
   type: website
   output-dir: docs
   

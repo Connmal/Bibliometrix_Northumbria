@@ -1,5 +1,5 @@
 ---
-title: "Network Attributes and Visualisations"
+title: "PLOS and OSF"
 author: 
   - name: "Thomas Pollet and Connor Malcolm"
     affiliations: 
