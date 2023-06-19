@@ -647,6 +647,7 @@ In terms of total publications classified as Green open access for corresponding
 #| output: false
 
 plot_result_green<-plot(x = result_green, k = 10, pause = F)
+
 ```
 
 ```{r}
@@ -667,6 +668,7 @@ This shows Northumbrian Authors who publish in journals which allow green open a
 #| echo: false
 
 plot_result_not_green<-plot(x = result_not_green, k = 10, pause = F)
+
 ```
 
 ```{r}
@@ -677,6 +679,7 @@ plot_result_not_green<-plot(x = result_not_green, k = 10, pause = F)
 
 
 plot_result_not_green[["MostProdAuthors"]]
+
 ```
 
 This shows Northumbrian Authors who publish in journals which are not green Open Access, **FU YQ** being the most productive (in terms of number of publications).
@@ -702,6 +705,7 @@ As shown of the top 25 journals for green open access, **PLOS ONE** is the most 
 
 DF_SO_table_not_green_sorted <- as.data.frame(SO_table_not_green_sorted)
 wourdcloud_not_green_publications<- wordcloud(words = DF_SO_table_not_green_sorted$Var1, freq = DF_SO_table_not_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(.25,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
 ```
 
 As shown above the top 25 journals for non green open access, **Advanced Sciences and Technologies for Security** is the most popular publication with 12 total publications, followed by **Critical Criminological Perspectives** with 8 and **Journal of Building Engineering** with 5.
