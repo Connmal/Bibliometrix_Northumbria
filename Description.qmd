@@ -1,5 +1,5 @@
 ---
-title: "PLOS and OSF"
+title: "Summary"
 author: 
   - name: "Thomas Pollet and Connor Malcolm"
     affiliations: 
@@ -7,12 +7,14 @@ author:
 date: "2022-01-30"
 date-modified: "`r format(Sys.time(), '%Y %B, %d')`"
 title-block-banner: true
-abstract: "PLOS and OSF Data"
+abstract: "A summary of the Bibliometrics document"
 ---
 
 ```{r}
 #| echo: false
 #| output: false
+
+library(stargazer)
 library(tidyverse)
 library(yarrr)
 library(wordcloud)
@@ -634,87 +636,70 @@ ggraph(graph, 'hive', axis = Collaboration, sort.by = 'degree') +
 
 ```
 
-## PLOS Data
+# Bibliometrics and Open Science Summary
 
-Link Scopus/WOS data by DOI to PLOS data
+This project has looked into several repositories of bilbiometric data from Scopus, Web of science, OSF, PURE and PLOS, to consider open science practices across Northumbria University.
 
-```{r}
-PLOS <- read.csv("PLOS_Dataset.csv")
-colnames(PLOS)[3] <- "DI"
-
-just_northumbria_PLOS<- PLOS %>% filter(DI %in% scopus_wos_all_oa$DI) #Only 15 (with a Northumbria Author)
-corr_northumbria_PLOS <- PLOS %>% filter(DI %in% all_oa_corr$DI) # Only 9 (with a corresponding author from Northumbria.) Get descriptives for open access
-
-just_plos_attempt <- scopus_wos_all_oa[str_detect(scopus_wos_all_oa$JI, "PLOS"), ]  # 43 journals.
-just_ploscorr_attempt <- all_oa_corr[str_detect(all_oa_corr$JI, "PLOS"), ] # 27 journals
-
-#Discrepency between PLOS data and scopus/web of science. Could be due to PLOS being out of date.
-```
-
-## OSF
+In terms of total publications classified as Green open access for corresponding Northumbrian authors there are 738 publications, for none green open access there are 218.
 
 ```{r}
-ORCID <- read.csv("PURE_ORCID_EXTRACT.csv")
-northumbria_OSF <- read.csv("OSF_names.csv")
-
-change_order <- function(string) {
-  words <- strsplit(string, ",")[[1]]
-  words <- words[length(words):1]
-  paste(words, collapse = " ")
-}
-
-ORCID$Name <- sapply(ORCID$Name, change_order)
-
-colnames(northumbria_OSF)[1] <- "Name"
-# Issue with slight differnces in names, no complete matches.Fuzzy match is confusing when trying to merge and delete unmatching rows.
-
-ORCID_OSF_join <- stringdist_join(ORCID, northumbria_OSF, 
-                by='Name', #match based on team
-                mode='left', #use left join
-                method = "jw", #use jw distance metric
-                max_dist=99, 
-                distance_col='dist') %>%
-  group_by(Name.x) %>%
-  slice_min(order_by=dist, n=2)
-
-
-ORCID_OSF_join %>%  filter(substr(Name.x, 1, 1) == substr(Name.y, 1, 1) & substr(Name.x, 2, 2) == substr(Name.y, 2, 2) & substr(Name.x, 3, 3) == substr(Name.y, 3, 3))
-
-ORCID_OSF_join<- ORCID_OSF_join[ORCID_OSF_join$dist <= .25, ]
-
-###write_csv(ORCID_OSF_join, "ORCID_OSF_join.csv") I manually wnet through the fuzzy matched and got rid of any that clearly were incorrect matches
-
-ORCID_neat_join <- read.csv("ORCID_OSF_join.csv")
-ORCID_neat_join$dist <- NULL
-ORCID_neat_join$FTE <- NULL
-ORCID_neat_join$Name.y <- NULL
+#| output: false
+plot_result_green<-plot(x = result_green, k = 10, pause = F)
 ```
 
 ```{r}
+#| label: fig-cap-margin
+#| fig-cap: "Most productive authors, classified by number of publications, who publish Green Open Science."
+#| cap-location: margin
 
-#Afilliation (university of Northumbria) in Scopus then click authors then export as csv. Linking OSF to Scopus guys but ORCID from excel. Plus Manual checking for multiple matches.
+plot_result_green[["MostProdAuthors"]]
 
-A_Z <- read.csv("scopus A-Z.csv")
-Z_A <- read.csv("scopus Z-A.csv")
-
-#Scopus by affiliation for authors. A-Z 4000 in one and Z-A 4000 in the other to capture all authors.
-
-scopus_authors <- merge(A_Z, Z_A, by = "Auth.ID")
-
-scopus_authors <- subset(scopus_authors, select = c(-Author.Name.y, -Number.of.Documents.y, -Orc_ID.y, -Subject.Area.y, -X.y ))
-colnames(scopus_authors)[2] <- "Name"
-colnames(scopus_authors)[3] <- "Number_of_Documents"
-colnames(scopus_authors)[4] <- "Subject_Area"
-colnames(scopus_authors)[5] <- "ORCID"
-colnames(scopus_authors)[6] <- "X"
-
-scopus_authors[scopus_authors == ''] <- NA
-ORCID_neat_join[ORCID_neat_join == ''] <- NA
-
-
-scopus_authors <- scopus_authors[!is.na(scopus_authors$ORCID), ]
-ORCID_neat_join <- ORCID_neat_join[!is.na(ORCID_neat_join$ORCID), ]
-
-scopus_and_OSF <- left_join(ORCID_neat_join, scopus_authors, by= "ORCID") ##Only 7 on OSF.ORCID and on Scopus.
 
 ```
+
+This shows Northumbrian Authors who publish in journals which allow green open access, **Stuart S** being the most productive (in terms of number of publications).
+
+```{r}
+#| output: false
+plot_result_not_green<-plot(x = result_not_green, k = 10, pause = F)
+```
+
+```{r}
+#| label: fig-cap-margin2
+#| fig-cap: "Most productive authors, classified by number of publications, who do not publish green open access."
+#| cap-location: margin
+
+plot_result_not_green[["MostProdAuthors"]]
+```
+
+This shows Northumbrian Authors who publish in journals which are not green Open Access, **FU YQ** being the most productive (in terms of number of publications).
+
+```{r}
+#| label: fig-cap-margin3
+#| fig-cap: "25 Most popular green open access journals for publication, classified by Northumbrian authors."
+#| cap-location: margin
+
+DF_SO_table_green_sorted <- as.data.frame(SO_table_green_sorted)
+wourdcloud_green_publications<- wordcloud(words = DF_SO_table_green_sorted$Var1, freq = DF_SO_table_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(1.2,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+
+```
+
+As shown of the top 25 journals for green open access, **PLOS ONE** is the most popular publication with 25 total publications, followed by **Buildings** and **Sensors** with 9 each and then **Journal of Criminal Law** with 7.
+
+```{r}
+#| label: fig-cap-margin4
+#| fig-cap: "25 most popular none green open access journals for publication, classified by Northumbrian authors."
+#| cap-location: margin
+DF_SO_table_not_green_sorted <- as.data.frame(SO_table_not_green_sorted)
+wourdcloud_not_green_publications<- wordcloud(words = DF_SO_table_not_green_sorted$Var1, freq = DF_SO_table_not_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(.25,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
+```
+
+As shown above the top 25 journals for non green open access, **Advanced Sciences and Technologies for Security** is the most popular publication with 12 total publications, followed by **Critical Criminological Perspectives** with 8 and **Journal of Building Engineering** with 5.
+
+```{r}
+model_all <- glm(cited ~ green_or_not ,data=full_oa_for_analysis, family=binomial)
+summary(model_all)
+
+```
+
+As can be seen by the general linear model output. There is a difference in amount of citations between green publications and none green open access. Though not significant, green publications tend to have more publications with at least one citation.

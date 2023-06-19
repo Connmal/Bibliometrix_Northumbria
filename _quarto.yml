@@ -7,6 +7,7 @@ project:
     - Bibliometric Analysis.qmd
     - Network Attributes and Visualisations.qmd
     - PLOS and OSF.qmd
+    - Description.qmd
   type: website
   output-dir: docs
   
@@ -26,6 +27,7 @@ website:
           - Bibliometric Analysis.qmd
           - Network Attributes and Visualisations.qmd
           - PLOS and OSF.qmd
+          - Description.qmd
 
 format:
   html:
