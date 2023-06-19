@@ -643,6 +643,7 @@ This project has looked into several repositories of bilbiometric data from Scop
 In terms of total publications classified as Green open access for corresponding Northumbrian authors there are 738 publications, for none green open access there are 218.
 
 ```{r}
+#| echo: false
 #| output: false
 plot_result_green<-plot(x = result_green, k = 10, pause = F)
 ```
@@ -667,10 +668,11 @@ plot_result_not_green<-plot(x = result_not_green, k = 10, pause = F)
 ```
 
 ```{r}
+#| echo: false
 #| label: fig-cap-margin2
 #| fig-cap: "Most productive authors, classified by number of publications, who do not publish green open access."
 #| cap-location: margin
-#| #| echo: false
+
 
 plot_result_not_green[["MostProdAuthors"]]
 ```
@@ -678,10 +680,10 @@ plot_result_not_green[["MostProdAuthors"]]
 This shows Northumbrian Authors who publish in journals which are not green Open Access, **FU YQ** being the most productive (in terms of number of publications).
 
 ```{r}
+#| echo: false
 #| label: fig-cap-margin3
 #| fig-cap: "25 Most popular green open access journals for publication, classified by Northumbrian authors."
 #| cap-location: margin
-#| echo: false
 
 DF_SO_table_green_sorted <- as.data.frame(SO_table_green_sorted)
 wourdcloud_green_publications<- wordcloud(words = DF_SO_table_green_sorted$Var1, freq = DF_SO_table_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(1.2,0.05), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
@@ -691,10 +693,10 @@ wourdcloud_green_publications<- wordcloud(words = DF_SO_table_green_sorted$Var1,
 As shown of the top 25 journals for green open access, **PLOS ONE** is the most popular publication with 25 total publications, followed by **Buildings** and **Sensors** with 9 each and then **Journal of Criminal Law** with 7.
 
 ```{r}
+#| echo: false
 #| label: fig-cap-margin4
 #| fig-cap: "25 most popular none green open access journals for publication, classified by Northumbrian authors."
 #| cap-location: margin
-#| #| echo: false
 DF_SO_table_not_green_sorted <- as.data.frame(SO_table_not_green_sorted)
 wourdcloud_not_green_publications<- wordcloud(words = DF_SO_table_not_green_sorted$Var1, freq = DF_SO_table_not_green_sorted$Freq, min.freq = 1, max.words=25, random.order=FALSE, scale=c(.25,0.25), rot.per=0.35, colors = piratepal("xmen")) ##Just the TOP 25
 ```
