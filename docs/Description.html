@@ -429,7 +429,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plot_result_green<span class="ot">&lt;-</span><span class="fu">plot</span>(<span class="at">x =</span> result_green, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">pause =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plot_result_green[[<span class="st">"MostProdAuthors"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div id="fig-cap-margin" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -441,10 +440,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This shows Northumbrian Authors who publish in journals which allow green open access, <strong>Stuart S</strong> being the most productive (in terms of number of publications).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot_result_not_green<span class="ot">&lt;-</span><span class="fu">plot</span>(<span class="at">x =</span> result_not_green, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">pause =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plot_result_not_green<span class="ot">&lt;-</span><span class="fu">plot</span>(<span class="at">x =</span> result_not_green, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">pause =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_result_not_green[[<span class="st">"MostProdAuthors"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot_result_not_green[[<span class="st">"MostProdAuthors"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div id="fig-cap-margin2" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -456,8 +455,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>This shows Northumbrian Authors who publish in journals which are not green Open Access, <strong>FU YQ</strong> being the most productive (in terms of number of publications).</p>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_green_sorted)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">1.2</span>,<span class="fl">0.05</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div id="fig-cap-margin3" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -469,8 +466,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>As shown of the top 25 journals for green open access, <strong>PLOS ONE</strong> is the most popular publication with 25 total publications, followed by <strong>Buildings</strong> and <strong>Sensors</strong> with 9 each and then <strong>Journal of Criminal Law</strong> with 7.</p>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_not_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_not_green_sorted)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_not_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(.<span class="dv">25</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>DF_SO_table_not_green_sorted <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(SO_table_not_green_sorted)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>wourdcloud_not_green_publications<span class="ot">&lt;-</span> <span class="fu">wordcloud</span>(<span class="at">words =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Var1, <span class="at">freq =</span> DF_SO_table_not_green_sorted<span class="sc">$</span>Freq, <span class="at">min.freq =</span> <span class="dv">1</span>, <span class="at">max.words=</span><span class="dv">25</span>, <span class="at">random.order=</span><span class="cn">FALSE</span>, <span class="at">scale=</span><span class="fu">c</span>(.<span class="dv">25</span>,<span class="fl">0.25</span>), <span class="at">rot.per=</span><span class="fl">0.35</span>, <span class="at">colors =</span> <span class="fu">piratepal</span>(<span class="st">"xmen"</span>)) <span class="do">##Just the TOP 25</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display page-columns page-full">
 <div id="fig-cap-margin4" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -482,8 +479,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>As shown above the top 25 journals for non green open access, <strong>Advanced Sciences and Technologies for Security</strong> is the most popular publication with 12 total publications, followed by <strong>Critical Criminological Perspectives</strong> with 8 and <strong>Journal of Building Engineering</strong> with 5.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_all <span class="ot">&lt;-</span> <span class="fu">glm</span>(cited <span class="sc">~</span> green_or_not ,<span class="at">data=</span>full_oa_for_analysis, <span class="at">family=</span>binomial)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
