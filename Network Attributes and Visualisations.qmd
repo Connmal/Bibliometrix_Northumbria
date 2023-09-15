@@ -592,9 +592,9 @@ sink()
 
 Link for Text files including First 10 (top_ten_cluster.txt) and a full text file for the cluster louvain (cluster_louvain.txt)
 
-\[Cluster_Louvain\]https://github.com/Connmal/Bibliometrix_Northumbria/blob/main/cluster_louvain.txt
+[Cluster_Louvain](https://github.com/Connmal/Bibliometrix_Northumbria/blob/main/cluster_louvain.txt)
 
-\[Top_Ten_Cluster\]https://github.com/Connmal/Bibliometrix_Northumbria/blob/main/top_ten_cluster.txt
+[Top_Ten_Cluster](https://github.com/Connmal/Bibliometrix_Northumbria/blob/main/top_ten_cluster.txt)
 
 ## Hive Plots
 
