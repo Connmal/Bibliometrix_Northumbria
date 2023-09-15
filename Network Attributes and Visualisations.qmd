@@ -574,6 +574,8 @@ plot(all_oa_graph, vertex.color=rainbow(7, alpha=0.6)[clusterlouvain$membership]
 
 ```{r}
 #| output: false
+#| echo: false
+
 str(clusterlouvain)
 full_cluster<- clusterlouvain[1:length(clusterlouvain) ]
 top_ten_cluster <- full_cluster[1:10]

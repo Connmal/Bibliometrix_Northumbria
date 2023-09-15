@@ -789,7 +789,7 @@ ELLIOTT IC           ELLIOTT IC    0.002729203</code></pre>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>clusterlouvain <span class="ot">&lt;-</span> <span class="fu">cluster_louvain</span>(all_oa_graph)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>clusterlouvain</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH clustering multi level, groups: 259, mod: 0.94
+<pre><code>IGRAPH clustering multi level, groups: 258, mod: 0.94
 + groups:
   $`1`
    [1] "STUART S"        "GODFREY A"       "BARRY G"         "MORRIS R"        "MASON R"         "WALKER R"       
@@ -811,17 +811,7 @@ ELLIOTT IC           ELLIOTT IC    0.002729203</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(clusterlouvain)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>full_cluster<span class="ot">&lt;-</span> clusterlouvain[<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(clusterlouvain) ]</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>top_ten_cluster <span class="ot">&lt;-</span> full_cluster[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(<span class="st">"cluster_louvain.txt"</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>full_cluster</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>()</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>(<span class="st">"top_ten_cluster.txt"</span>)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>top_ten_cluster</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sink</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
 <p>Link for Text files including First 10 (top_ten_cluster.txt) and a full text file for the cluster louvain (cluster_louvain.txt)</p>
 <p><a href="https://github.com/Connmal/Bibliometrix_Northumbria/blob/main/cluster_louvain.txt">Cluster_Louvain</a></p>
@@ -832,57 +822,57 @@ ELLIOTT IC           ELLIOTT IC    0.002729203</code></pre>
 <h2 class="anchored" data-anchor-id="hive-plots">Hive Plots</h2>
 <p>Taking igraphs from the bilbionetwork object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>hive_green <span class="ot">&lt;-</span> net_green[[<span class="st">"graph"</span>]]</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_edge, <span class="at">oa_status =</span> <span class="st">"Green"</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_edge)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>hive_green_accpeted <span class="ot">&lt;-</span> net_green_accepted[[<span class="st">"graph"</span>]]</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_accpeted)</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_accepted_edge, <span class="at">oa_status =</span> <span class="st">"Green Accepted"</span>)</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_accepted_edge)</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>hive_green_final <span class="ot">&lt;-</span> net_green_final[[<span class="st">"graph"</span>]]</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_final)</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_final_edge, <span class="at">oa_status =</span> <span class="st">"Green Final"</span>)</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_final_edge)</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>hive_not_green <span class="ot">&lt;-</span> net_not_green[[<span class="st">"graph"</span>]]</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_not_green)</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(not_green_edge, <span class="at">oa_status =</span> <span class="st">"Not Green"</span>)</span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(not_green_edge)</span>
-<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
-<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>full_hive <span class="ot">&lt;-</span> <span class="fu">rbind</span>(green_edge, green_accepted_edge, green_final_edge, not_green_edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>hive_green <span class="ot">&lt;-</span> net_green[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_edge, <span class="at">oa_status =</span> <span class="st">"Green"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_edge)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_edge)[<span class="fu">names</span>(green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>hive_green_accpeted <span class="ot">&lt;-</span> net_green_accepted[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_accpeted)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_accepted_edge, <span class="at">oa_status =</span> <span class="st">"Green Accepted"</span>)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>green_accepted_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_accepted_edge)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_accepted_edge)[<span class="fu">names</span>(green_accepted_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>hive_green_final <span class="ot">&lt;-</span> net_green_final[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_green_final)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(green_final_edge, <span class="at">oa_status =</span> <span class="st">"Green Final"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>green_final_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(green_final_edge)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(green_final_edge)[<span class="fu">names</span>(green_final_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>hive_not_green <span class="ot">&lt;-</span> net_not_green[[<span class="st">"graph"</span>]]</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as_edgelist</span>(hive_not_green)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">cbind</span>(not_green_edge, <span class="at">oa_status =</span> <span class="st">"Not Green"</span>)</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>not_green_edge <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(not_green_edge)</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V1"</span>] <span class="ot">&lt;-</span> <span class="st">"From"</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(not_green_edge)[<span class="fu">names</span>(not_green_edge) <span class="sc">==</span> <span class="st">"V2"</span>] <span class="ot">&lt;-</span> <span class="st">"To"</span></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>full_hive <span class="ot">&lt;-</span> <span class="fu">rbind</span>(green_edge, green_accepted_edge, green_final_edge, not_green_edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Hive plot below shows the collaborations between authors in terms of collaboration, differentiated by their open access.</p>
 <p>The large main hive plot lines are where the nodes (authors) are situated based on three categories. Having <strong>few</strong> collaborations (less than 5) having <strong>medium</strong> collaborations (between 5 and 15) and having <strong>many</strong> collaborations (more than 15) The curved lines signify and edge (collaboration/link between authors).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(full_hive)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">degree</span>(graph, <span class="at">mode =</span> <span class="st">'in'</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="st">'few'</span>, </span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&gt;=</span> <span class="dv">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span>)), </span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>))</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the hive plot</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#16e01a"</span>, <span class="st">"#69d9db"</span>, <span class="st">"#9f4fe0"</span>,<span class="st">"#06000a"</span>), <span class="at">name =</span> <span class="st">"Open Access Status"</span>) <span class="sc">+</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>graph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(full_hive)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">degree</span>(graph, <span class="at">mode =</span> <span class="st">'in'</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&lt;</span> <span class="dv">5</span>, <span class="st">'few'</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">ifelse</span>(<span class="fu">V</span>(graph)<span class="sc">$</span>Collaboration <span class="sc">&gt;=</span> <span class="dv">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span>)), </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>))</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the hive plot</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#16e01a"</span>, <span class="st">"#69d9db"</span>, <span class="st">"#9f4fe0"</span>,<span class="st">"#06000a"</span>), <span class="at">name =</span> <span class="st">"Open Access Status"</span>) <span class="sc">+</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Scale for colour is already present.
 Adding another scale for colour, which will replace the existing scale.</code></pre>
@@ -899,13 +889,13 @@ Adding another scale for colour, which will replace the existing scale.</code></
 <h3 class="anchored" data-anchor-id="faceted-hive-plots">Faceted Hive Plots</h3>
 <p>Hive plots separated by open access for clearer visualization.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span> </span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_edges</span>(<span class="sc">~</span>oa_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(graph, <span class="st">'hive'</span>, <span class="at">axis =</span> Collaboration, <span class="at">sort.by =</span> <span class="st">'degree'</span>) <span class="sc">+</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> oa_status)) <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_axis_hive</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Collaboration), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">label =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#06000a"</span>, <span class="st">"#4149d9"</span>, <span class="st">"#fce803"</span>),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'few'</span>, <span class="st">'medium'</span>, <span class="st">'many'</span>)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_edges</span>(<span class="sc">~</span>oa_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Network-Attributes-and-Visualisations_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid" width="672"></p>
 </div>
